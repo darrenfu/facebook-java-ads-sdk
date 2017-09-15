@@ -92,7 +92,7 @@ public class ProductFeedUploadErrorSample extends APINode {
   public static APINodeList<ProductFeedUploadErrorSample> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<ProductFeedUploadErrorSample>)(
       new APIRequest<ProductFeedUploadErrorSample>(context, "", "/", "GET", ProductFeedUploadErrorSample.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );

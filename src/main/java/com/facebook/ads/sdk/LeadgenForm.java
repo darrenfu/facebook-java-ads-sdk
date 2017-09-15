@@ -53,8 +53,6 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
 public class LeadgenForm extends APINode {
   @SerializedName("allow_organic_lead")
   private Boolean mAllowOrganicLead = null;
-  @SerializedName("block_display_for_non_targeted_viewer")
-  private Boolean mBlockDisplayForNonTargetedViewer = null;
   @SerializedName("context_card")
   private Object mContextCard = null;
   @SerializedName("continued_flow_request_method")
@@ -89,8 +87,6 @@ public class LeadgenForm extends APINode {
   private String mMessengerWelcomeMessage = null;
   @SerializedName("name")
   private String mName = null;
-  @SerializedName("organic_leads_count")
-  private Long mOrganicLeadsCount = null;
   @SerializedName("page")
   private Object mPage = null;
   @SerializedName("page_id")
@@ -140,7 +136,7 @@ public class LeadgenForm extends APINode {
   public static APINodeList<LeadgenForm> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<LeadgenForm>)(
       new APIRequest<LeadgenForm>(context, "", "/", "GET", LeadgenForm.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -306,10 +302,6 @@ public class LeadgenForm extends APINode {
     return mAllowOrganicLead;
   }
 
-  public Boolean getFieldBlockDisplayForNonTargetedViewer() {
-    return mBlockDisplayForNonTargetedViewer;
-  }
-
   public Object getFieldContextCard() {
     return mContextCard;
   }
@@ -381,10 +373,6 @@ public class LeadgenForm extends APINode {
     return mName;
   }
 
-  public Long getFieldOrganicLeadsCount() {
-    return mOrganicLeadsCount;
-  }
-
   public Object getFieldPage() {
     return mPage;
   }
@@ -439,7 +427,6 @@ public class LeadgenForm extends APINode {
       "id",
       "is_organic",
       "post",
-      "retailer_item_id",
     };
 
     @Override
@@ -600,13 +587,6 @@ public class LeadgenForm extends APINode {
     }
     public APIRequestGetLeads requestPostField (boolean value) {
       this.requestField("post", value);
-      return this;
-    }
-    public APIRequestGetLeads requestRetailerItemIdField () {
-      return this.requestRetailerItemIdField(true);
-    }
-    public APIRequestGetLeads requestRetailerItemIdField (boolean value) {
-      this.requestField("retailer_item_id", value);
       return this;
     }
   }
@@ -811,7 +791,6 @@ public class LeadgenForm extends APINode {
 
     public static final String[] FIELDS = {
       "allow_organic_lead",
-      "block_display_for_non_targeted_viewer",
       "context_card",
       "continued_flow_request_method",
       "created_time",
@@ -829,7 +808,6 @@ public class LeadgenForm extends APINode {
       "locale",
       "messenger_welcome_message",
       "name",
-      "organic_leads_count",
       "page",
       "page_id",
       "privacy_policy_url",
@@ -913,13 +891,6 @@ public class LeadgenForm extends APINode {
     }
     public APIRequestGet requestAllowOrganicLeadField (boolean value) {
       this.requestField("allow_organic_lead", value);
-      return this;
-    }
-    public APIRequestGet requestBlockDisplayForNonTargetedViewerField () {
-      return this.requestBlockDisplayForNonTargetedViewerField(true);
-    }
-    public APIRequestGet requestBlockDisplayForNonTargetedViewerField (boolean value) {
-      this.requestField("block_display_for_non_targeted_viewer", value);
       return this;
     }
     public APIRequestGet requestContextCardField () {
@@ -1041,13 +1012,6 @@ public class LeadgenForm extends APINode {
       this.requestField("name", value);
       return this;
     }
-    public APIRequestGet requestOrganicLeadsCountField () {
-      return this.requestOrganicLeadsCountField(true);
-    }
-    public APIRequestGet requestOrganicLeadsCountField (boolean value) {
-      this.requestField("organic_leads_count", value);
-      return this;
-    }
     public APIRequestGet requestPageField () {
       return this.requestPageField(true);
     }
@@ -1115,7 +1079,6 @@ public class LeadgenForm extends APINode {
 
   public LeadgenForm copyFrom(LeadgenForm instance) {
     this.mAllowOrganicLead = instance.mAllowOrganicLead;
-    this.mBlockDisplayForNonTargetedViewer = instance.mBlockDisplayForNonTargetedViewer;
     this.mContextCard = instance.mContextCard;
     this.mContinuedFlowRequestMethod = instance.mContinuedFlowRequestMethod;
     this.mCreatedTime = instance.mCreatedTime;
@@ -1133,7 +1096,6 @@ public class LeadgenForm extends APINode {
     this.mLocale = instance.mLocale;
     this.mMessengerWelcomeMessage = instance.mMessengerWelcomeMessage;
     this.mName = instance.mName;
-    this.mOrganicLeadsCount = instance.mOrganicLeadsCount;
     this.mPage = instance.mPage;
     this.mPageId = instance.mPageId;
     this.mPrivacyPolicyUrl = instance.mPrivacyPolicyUrl;

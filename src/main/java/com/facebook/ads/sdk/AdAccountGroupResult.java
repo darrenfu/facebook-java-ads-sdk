@@ -50,27 +50,27 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
  * pull request for this class.
  *
  */
-public class CustomConversionStatsResult extends APINode {
-  @SerializedName("aggregation")
-  private EnumAggregation mAggregation = null;
-  @SerializedName("data")
-  private List<Object> mData = null;
-  @SerializedName("timestamp")
-  private String mTimestamp = null;
+public class AdAccountGroupResult extends APINode {
+  @SerializedName("account_group_id")
+  private String mAccountGroupId = null;
+  @SerializedName("name")
+  private String mName = null;
+  @SerializedName("status")
+  private Long mStatus = null;
   protected static Gson gson = null;
 
-  public CustomConversionStatsResult() {
+  public AdAccountGroupResult() {
   }
 
   public String getId() {
     return null;
   }
-  public static CustomConversionStatsResult loadJSON(String json, APIContext context) {
-    CustomConversionStatsResult customConversionStatsResult = getGson().fromJson(json, CustomConversionStatsResult.class);
+  public static AdAccountGroupResult loadJSON(String json, APIContext context) {
+    AdAccountGroupResult adAccountGroupResult = getGson().fromJson(json, AdAccountGroupResult.class);
     if (context.isDebug()) {
       JsonParser parser = new JsonParser();
       JsonElement o1 = parser.parse(json);
-      JsonElement o2 = parser.parse(customConversionStatsResult.toString());
+      JsonElement o2 = parser.parse(adAccountGroupResult.toString());
       if (o1.getAsJsonObject().get("__fb_trace_id__") != null) {
         o2.getAsJsonObject().add("__fb_trace_id__", o1.getAsJsonObject().get("__fb_trace_id__"));
       }
@@ -80,13 +80,13 @@ public class CustomConversionStatsResult extends APINode {
         context.log("[Object]" + o2);
       };
     }
-    customConversionStatsResult.context = context;
-    customConversionStatsResult.rawValue = json;
-    return customConversionStatsResult;
+    adAccountGroupResult.context = context;
+    adAccountGroupResult.rawValue = json;
+    return adAccountGroupResult;
   }
 
-  public static APINodeList<CustomConversionStatsResult> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
-    APINodeList<CustomConversionStatsResult> customConversionStatsResults = new APINodeList<CustomConversionStatsResult>(request, json);
+  public static APINodeList<AdAccountGroupResult> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
+    APINodeList<AdAccountGroupResult> adAccountGroupResults = new APINodeList<AdAccountGroupResult>(request, json);
     JsonArray arr;
     JsonObject obj;
     JsonParser parser = new JsonParser();
@@ -97,9 +97,9 @@ public class CustomConversionStatsResult extends APINode {
         // First, check if it's a pure JSON Array
         arr = result.getAsJsonArray();
         for (int i = 0; i < arr.size(); i++) {
-          customConversionStatsResults.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+          adAccountGroupResults.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
         };
-        return customConversionStatsResults;
+        return adAccountGroupResults;
       } else if (result.isJsonObject()) {
         obj = result.getAsJsonObject();
         if (obj.has("data")) {
@@ -107,13 +107,13 @@ public class CustomConversionStatsResult extends APINode {
             JsonObject paging = obj.get("paging").getAsJsonObject().get("cursors").getAsJsonObject();
             String before = paging.has("before") ? paging.get("before").getAsString() : null;
             String after = paging.has("after") ? paging.get("after").getAsString() : null;
-            customConversionStatsResults.setPaging(before, after);
+            adAccountGroupResults.setPaging(before, after);
           }
           if (obj.get("data").isJsonArray()) {
             // Second, check if it's a JSON array with "data"
             arr = obj.get("data").getAsJsonArray();
             for (int i = 0; i < arr.size(); i++) {
-              customConversionStatsResults.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+              adAccountGroupResults.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
             };
           } else if (obj.get("data").isJsonObject()) {
             // Third, check if it's a JSON object with "data"
@@ -124,23 +124,23 @@ public class CustomConversionStatsResult extends APINode {
                 isRedownload = true;
                 obj = obj.getAsJsonObject(s);
                 for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-                  customConversionStatsResults.add(loadJSON(entry.getValue().toString(), context));
+                  adAccountGroupResults.add(loadJSON(entry.getValue().toString(), context));
                 }
                 break;
               }
             }
             if (!isRedownload) {
-              customConversionStatsResults.add(loadJSON(obj.toString(), context));
+              adAccountGroupResults.add(loadJSON(obj.toString(), context));
             }
           }
-          return customConversionStatsResults;
+          return adAccountGroupResults;
         } else if (obj.has("images")) {
           // Fourth, check if it's a map of image objects
           obj = obj.get("images").getAsJsonObject();
           for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-              customConversionStatsResults.add(loadJSON(entry.getValue().toString(), context));
+              adAccountGroupResults.add(loadJSON(entry.getValue().toString(), context));
           }
-          return customConversionStatsResults;
+          return adAccountGroupResults;
         } else {
           // Fifth, check if it's an array of objects indexed by id
           boolean isIdIndexedArray = true;
@@ -157,20 +157,20 @@ public class CustomConversionStatsResult extends APINode {
               value.getAsJsonObject().get("id") != null &&
               value.getAsJsonObject().get("id").getAsString().equals(key)
             ) {
-              customConversionStatsResults.add(loadJSON(value.toString(), context));
+              adAccountGroupResults.add(loadJSON(value.toString(), context));
             } else {
               isIdIndexedArray = false;
               break;
             }
           }
           if (isIdIndexedArray) {
-            return customConversionStatsResults;
+            return adAccountGroupResults;
           }
 
           // Sixth, check if it's pure JsonObject
-          customConversionStatsResults.clear();
-          customConversionStatsResults.add(loadJSON(json, context));
-          return customConversionStatsResults;
+          adAccountGroupResults.clear();
+          adAccountGroupResults.add(loadJSON(json, context));
+          return adAccountGroupResults;
         }
       }
     } catch (Exception e) {
@@ -198,65 +198,34 @@ public class CustomConversionStatsResult extends APINode {
   }
 
 
-  public EnumAggregation getFieldAggregation() {
-    return mAggregation;
+  public String getFieldAccountGroupId() {
+    return mAccountGroupId;
   }
 
-  public CustomConversionStatsResult setFieldAggregation(EnumAggregation value) {
-    this.mAggregation = value;
+  public AdAccountGroupResult setFieldAccountGroupId(String value) {
+    this.mAccountGroupId = value;
     return this;
   }
 
-  public List<Object> getFieldData() {
-    return mData;
+  public String getFieldName() {
+    return mName;
   }
 
-  public CustomConversionStatsResult setFieldData(List<Object> value) {
-    this.mData = value;
+  public AdAccountGroupResult setFieldName(String value) {
+    this.mName = value;
     return this;
   }
 
-  public String getFieldTimestamp() {
-    return mTimestamp;
+  public Long getFieldStatus() {
+    return mStatus;
   }
 
-  public CustomConversionStatsResult setFieldTimestamp(String value) {
-    this.mTimestamp = value;
+  public AdAccountGroupResult setFieldStatus(Long value) {
+    this.mStatus = value;
     return this;
   }
 
 
-
-  public static enum EnumAggregation {
-      @SerializedName("count")
-      VALUE_COUNT("count"),
-      @SerializedName("device_type")
-      VALUE_DEVICE_TYPE("device_type"),
-      @SerializedName("host")
-      VALUE_HOST("host"),
-      @SerializedName("pixel_fire")
-      VALUE_PIXEL_FIRE("pixel_fire"),
-      @SerializedName("unmatched_count")
-      VALUE_UNMATCHED_COUNT("unmatched_count"),
-      @SerializedName("unmatched_usd_amount")
-      VALUE_UNMATCHED_USD_AMOUNT("unmatched_usd_amount"),
-      @SerializedName("url")
-      VALUE_URL("url"),
-      @SerializedName("usd_amount")
-      VALUE_USD_AMOUNT("usd_amount"),
-      NULL(null);
-
-      private String value;
-
-      private EnumAggregation(String value) {
-        this.value = value;
-      }
-
-      @Override
-      public String toString() {
-        return value;
-      }
-  }
 
 
   synchronized /*package*/ static Gson getGson() {
@@ -272,19 +241,19 @@ public class CustomConversionStatsResult extends APINode {
     return gson;
   }
 
-  public CustomConversionStatsResult copyFrom(CustomConversionStatsResult instance) {
-    this.mAggregation = instance.mAggregation;
-    this.mData = instance.mData;
-    this.mTimestamp = instance.mTimestamp;
+  public AdAccountGroupResult copyFrom(AdAccountGroupResult instance) {
+    this.mAccountGroupId = instance.mAccountGroupId;
+    this.mName = instance.mName;
+    this.mStatus = instance.mStatus;
     this.context = instance.context;
     this.rawValue = instance.rawValue;
     return this;
   }
 
-  public static APIRequest.ResponseParser<CustomConversionStatsResult> getParser() {
-    return new APIRequest.ResponseParser<CustomConversionStatsResult>() {
-      public APINodeList<CustomConversionStatsResult> parseResponse(String response, APIContext context, APIRequest<CustomConversionStatsResult> request) throws MalformedResponseException {
-        return CustomConversionStatsResult.parseResponse(response, context, request);
+  public static APIRequest.ResponseParser<AdAccountGroupResult> getParser() {
+    return new APIRequest.ResponseParser<AdAccountGroupResult>() {
+      public APINodeList<AdAccountGroupResult> parseResponse(String response, APIContext context, APIRequest<AdAccountGroupResult> request) throws MalformedResponseException {
+        return AdAccountGroupResult.parseResponse(response, context, request);
       }
     };
   }

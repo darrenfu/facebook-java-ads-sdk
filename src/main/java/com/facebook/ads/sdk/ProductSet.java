@@ -98,7 +98,7 @@ public class ProductSet extends APINode {
   public static APINodeList<ProductSet> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<ProductSet>)(
       new APIRequest<ProductSet>(context, "", "/", "GET", ProductSet.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -305,7 +305,6 @@ public class ProductSet extends APINode {
 
     public static final String[] FIELDS = {
       "id",
-      "product_catalog",
       "retailer_id",
       "variants",
     };
@@ -386,13 +385,6 @@ public class ProductSet extends APINode {
       this.requestField("id", value);
       return this;
     }
-    public APIRequestGetProductGroups requestProductCatalogField () {
-      return this.requestProductCatalogField(true);
-    }
-    public APIRequestGetProductGroups requestProductCatalogField (boolean value) {
-      this.requestField("product_catalog", value);
-      return this;
-    }
     public APIRequestGetProductGroups requestRetailerIdField () {
       return this.requestRetailerIdField(true);
     }
@@ -418,7 +410,6 @@ public class ProductSet extends APINode {
     }
     public static final String[] PARAMS = {
       "bulk_pagination",
-      "filter",
     };
 
     public static final String[] FIELDS = {
@@ -450,9 +441,7 @@ public class ProductSet extends APINode {
       "ordering_index",
       "pattern",
       "price",
-      "product_catalog",
       "product_feed",
-      "product_group",
       "product_type",
       "retailer_id",
       "retailer_product_group_id",
@@ -509,15 +498,6 @@ public class ProductSet extends APINode {
     }
     public APIRequestGetProducts setBulkPagination (String bulkPagination) {
       this.setParam("bulk_pagination", bulkPagination);
-      return this;
-    }
-
-    public APIRequestGetProducts setFilter (Object filter) {
-      this.setParam("filter", filter);
-      return this;
-    }
-    public APIRequestGetProducts setFilter (String filter) {
-      this.setParam("filter", filter);
       return this;
     }
 
@@ -753,25 +733,11 @@ public class ProductSet extends APINode {
       this.requestField("price", value);
       return this;
     }
-    public APIRequestGetProducts requestProductCatalogField () {
-      return this.requestProductCatalogField(true);
-    }
-    public APIRequestGetProducts requestProductCatalogField (boolean value) {
-      this.requestField("product_catalog", value);
-      return this;
-    }
     public APIRequestGetProducts requestProductFeedField () {
       return this.requestProductFeedField(true);
     }
     public APIRequestGetProducts requestProductFeedField (boolean value) {
       this.requestField("product_feed", value);
-      return this;
-    }
-    public APIRequestGetProducts requestProductGroupField () {
-      return this.requestProductGroupField(true);
-    }
-    public APIRequestGetProducts requestProductGroupField (boolean value) {
-      this.requestField("product_group", value);
       return this;
     }
     public APIRequestGetProducts requestProductTypeField () {

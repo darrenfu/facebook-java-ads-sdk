@@ -67,8 +67,6 @@ public class TargetingGeoLocation extends APINode {
   private List<String> mLocationTypes = null;
   @SerializedName("places")
   private List<TargetingGeoLocationPlace> mPlaces = null;
-  @SerializedName("political_districts")
-  private List<TargetingGeoLocationPoliticalDistrict> mPoliticalDistricts = null;
   @SerializedName("regions")
   private List<TargetingGeoLocationRegion> mRegions = null;
   @SerializedName("zips")
@@ -311,20 +309,6 @@ public class TargetingGeoLocation extends APINode {
     this.mPlaces = TargetingGeoLocationPlace.getGson().fromJson(value, type);
     return this;
   }
-  public List<TargetingGeoLocationPoliticalDistrict> getFieldPoliticalDistricts() {
-    return mPoliticalDistricts;
-  }
-
-  public TargetingGeoLocation setFieldPoliticalDistricts(List<TargetingGeoLocationPoliticalDistrict> value) {
-    this.mPoliticalDistricts = value;
-    return this;
-  }
-
-  public TargetingGeoLocation setFieldPoliticalDistricts(String value) {
-    Type type = new TypeToken<List<TargetingGeoLocationPoliticalDistrict>>(){}.getType();
-    this.mPoliticalDistricts = TargetingGeoLocationPoliticalDistrict.getGson().fromJson(value, type);
-    return this;
-  }
   public List<TargetingGeoLocationRegion> getFieldRegions() {
     return mRegions;
   }
@@ -378,7 +362,6 @@ public class TargetingGeoLocation extends APINode {
     this.mGeoMarkets = instance.mGeoMarkets;
     this.mLocationTypes = instance.mLocationTypes;
     this.mPlaces = instance.mPlaces;
-    this.mPoliticalDistricts = instance.mPoliticalDistricts;
     this.mRegions = instance.mRegions;
     this.mZips = instance.mZips;
     this.context = instance.context;

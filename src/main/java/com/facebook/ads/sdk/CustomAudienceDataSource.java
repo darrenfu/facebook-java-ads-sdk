@@ -248,8 +248,6 @@ public class CustomAudienceDataSource extends APINode {
       VALUE_TOKENS("TOKENS"),
       @SerializedName("EXTERNAL_IDS_MIX")
       VALUE_EXTERNAL_IDS_MIX("EXTERNAL_IDS_MIX"),
-      @SerializedName("HOUSEHOLD_EXPANSION")
-      VALUE_HOUSEHOLD_EXPANSION("HOUSEHOLD_EXPANSION"),
       @SerializedName("WEB_PIXEL_HITS")
       VALUE_WEB_PIXEL_HITS("WEB_PIXEL_HITS"),
       @SerializedName("MOBILE_APP_EVENTS")
@@ -260,8 +258,6 @@ public class CustomAudienceDataSource extends APINode {
       VALUE_VIDEO_EVENTS("VIDEO_EVENTS"),
       @SerializedName("WEB_PIXEL_COMBINATION_EVENTS")
       VALUE_WEB_PIXEL_COMBINATION_EVENTS("WEB_PIXEL_COMBINATION_EVENTS"),
-      @SerializedName("PLATFORM")
-      VALUE_PLATFORM("PLATFORM"),
       @SerializedName("ENGAGEMENT_EVENT_USERS")
       VALUE_ENGAGEMENT_EVENT_USERS("ENGAGEMENT_EVENT_USERS"),
       @SerializedName("CUSTOM_AUDIENCE_USERS")
@@ -300,12 +296,6 @@ public class CustomAudienceDataSource extends APINode {
       VALUE_SEED_LIST("SEED_LIST"),
       @SerializedName("PARTNER_CATEGORY_USERS")
       VALUE_PARTNER_CATEGORY_USERS("PARTNER_CATEGORY_USERS"),
-      @SerializedName("PAGE_SMART_AUDIENCE")
-      VALUE_PAGE_SMART_AUDIENCE("PAGE_SMART_AUDIENCE"),
-      @SerializedName("MULTICOUNTRY_COMBINATION")
-      VALUE_MULTICOUNTRY_COMBINATION("MULTICOUNTRY_COMBINATION"),
-      @SerializedName("PLATFORM_USERS")
-      VALUE_PLATFORM_USERS("PLATFORM_USERS"),
       @SerializedName("MAIL_CHIMP_EMAIL_HASHES")
       VALUE_MAIL_CHIMP_EMAIL_HASHES("MAIL_CHIMP_EMAIL_HASHES"),
       @SerializedName("CONSTANT_CONTACTS_EMAIL_HASHES")
@@ -343,8 +333,6 @@ public class CustomAudienceDataSource extends APINode {
       VALUE_COPY_PASTE("COPY_PASTE"),
       @SerializedName("CONTACT_IMPORTER")
       VALUE_CONTACT_IMPORTER("CONTACT_IMPORTER"),
-      @SerializedName("HOUSEHOLD_AUDIENCE")
-      VALUE_HOUSEHOLD_AUDIENCE("HOUSEHOLD_AUDIENCE"),
       NULL(null);
 
       private String value;

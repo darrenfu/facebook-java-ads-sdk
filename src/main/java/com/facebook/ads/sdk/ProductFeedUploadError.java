@@ -53,8 +53,6 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
 public class ProductFeedUploadError extends APINode {
   @SerializedName("description")
   private String mDescription = null;
-  @SerializedName("error_type")
-  private String mErrorType = null;
   @SerializedName("id")
   private String mId = null;
   @SerializedName("severity")
@@ -98,7 +96,7 @@ public class ProductFeedUploadError extends APINode {
   public static APINodeList<ProductFeedUploadError> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<ProductFeedUploadError>)(
       new APIRequest<ProductFeedUploadError>(context, "", "/", "GET", ProductFeedUploadError.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -256,10 +254,6 @@ public class ProductFeedUploadError extends APINode {
     return mDescription;
   }
 
-  public String getFieldErrorType() {
-    return mErrorType;
-  }
-
   public String getFieldId() {
     return mId;
   }
@@ -398,7 +392,6 @@ public class ProductFeedUploadError extends APINode {
 
     public static final String[] FIELDS = {
       "description",
-      "error_type",
       "id",
       "severity",
       "summary",
@@ -481,13 +474,6 @@ public class ProductFeedUploadError extends APINode {
       this.requestField("description", value);
       return this;
     }
-    public APIRequestGet requestErrorTypeField () {
-      return this.requestErrorTypeField(true);
-    }
-    public APIRequestGet requestErrorTypeField (boolean value) {
-      this.requestField("error_type", value);
-      return this;
-    }
     public APIRequestGet requestIdField () {
       return this.requestIdField(true);
     }
@@ -553,7 +539,6 @@ public class ProductFeedUploadError extends APINode {
 
   public ProductFeedUploadError copyFrom(ProductFeedUploadError instance) {
     this.mDescription = instance.mDescription;
-    this.mErrorType = instance.mErrorType;
     this.mId = instance.mId;
     this.mSeverity = instance.mSeverity;
     this.mSummary = instance.mSummary;

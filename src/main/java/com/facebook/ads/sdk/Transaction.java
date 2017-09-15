@@ -63,16 +63,10 @@ public class Transaction extends APINode {
   private Long mBillingStartTime = null;
   @SerializedName("charge_type")
   private String mChargeType = null;
-  @SerializedName("checkout_campaign_group_id")
-  private String mCheckoutCampaignGroupId = null;
-  @SerializedName("credential_id")
-  private String mCredentialId = null;
   @SerializedName("fatura_id")
   private Long mFaturaId = null;
   @SerializedName("id")
   private String mId = null;
-  @SerializedName("is_business_ec_charge")
-  private Boolean mIsBusinessEcCharge = null;
   @SerializedName("payment_option")
   private String mPaymentOption = null;
   @SerializedName("product_type")
@@ -285,24 +279,6 @@ public class Transaction extends APINode {
     return this;
   }
 
-  public String getFieldCheckoutCampaignGroupId() {
-    return mCheckoutCampaignGroupId;
-  }
-
-  public Transaction setFieldCheckoutCampaignGroupId(String value) {
-    this.mCheckoutCampaignGroupId = value;
-    return this;
-  }
-
-  public String getFieldCredentialId() {
-    return mCredentialId;
-  }
-
-  public Transaction setFieldCredentialId(String value) {
-    this.mCredentialId = value;
-    return this;
-  }
-
   public Long getFieldFaturaId() {
     return mFaturaId;
   }
@@ -318,15 +294,6 @@ public class Transaction extends APINode {
 
   public Transaction setFieldId(String value) {
     this.mId = value;
-    return this;
-  }
-
-  public Boolean getFieldIsBusinessEcCharge() {
-    return mIsBusinessEcCharge;
-  }
-
-  public Transaction setFieldIsBusinessEcCharge(Boolean value) {
-    this.mIsBusinessEcCharge = value;
     return this;
   }
 
@@ -431,11 +398,8 @@ public class Transaction extends APINode {
     this.mBillingReason = instance.mBillingReason;
     this.mBillingStartTime = instance.mBillingStartTime;
     this.mChargeType = instance.mChargeType;
-    this.mCheckoutCampaignGroupId = instance.mCheckoutCampaignGroupId;
-    this.mCredentialId = instance.mCredentialId;
     this.mFaturaId = instance.mFaturaId;
     this.mId = instance.mId;
-    this.mIsBusinessEcCharge = instance.mIsBusinessEcCharge;
     this.mPaymentOption = instance.mPaymentOption;
     this.mProductType = instance.mProductType;
     this.mProviderAmount = instance.mProviderAmount;

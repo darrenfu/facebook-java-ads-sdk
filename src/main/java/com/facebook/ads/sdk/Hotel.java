@@ -112,7 +112,7 @@ public class Hotel extends APINode {
   public static APINodeList<Hotel> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<Hotel>)(
       new APIRequest<Hotel>(context, "", "/", "GET", Hotel.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );

@@ -360,14 +360,6 @@ public class AdAccountTargetingUnified extends APINode {
       VALUE_FACEBOOK_POSITIONS("facebook_positions"),
       @SerializedName("effective_facebook_positions")
       VALUE_EFFECTIVE_FACEBOOK_POSITIONS("effective_facebook_positions"),
-      @SerializedName("instagram_positions")
-      VALUE_INSTAGRAM_POSITIONS("instagram_positions"),
-      @SerializedName("effective_instagram_positions")
-      VALUE_EFFECTIVE_INSTAGRAM_POSITIONS("effective_instagram_positions"),
-      @SerializedName("messenger_positions")
-      VALUE_MESSENGER_POSITIONS("messenger_positions"),
-      @SerializedName("effective_messenger_positions")
-      VALUE_EFFECTIVE_MESSENGER_POSITIONS("effective_messenger_positions"),
       @SerializedName("device_platforms")
       VALUE_DEVICE_PLATFORMS("device_platforms"),
       @SerializedName("effective_device_platforms")
@@ -380,12 +372,12 @@ public class AdAccountTargetingUnified extends APINode {
       VALUE_EXCLUDED_PUBLISHER_CATEGORIES("excluded_publisher_categories"),
       @SerializedName("excluded_publisher_list_ids")
       VALUE_EXCLUDED_PUBLISHER_LIST_IDS("excluded_publisher_list_ids"),
+      @SerializedName("excluded_publisher_domains")
+      VALUE_EXCLUDED_PUBLISHER_DOMAINS("excluded_publisher_domains"),
       @SerializedName("publisher_visibility_categories")
       VALUE_PUBLISHER_VISIBILITY_CATEGORIES("publisher_visibility_categories"),
       @SerializedName("user_device")
       VALUE_USER_DEVICE("user_device"),
-      @SerializedName("mobile_device_model")
-      VALUE_MOBILE_DEVICE_MODEL("mobile_device_model"),
       @SerializedName("excluded_user_device")
       VALUE_EXCLUDED_USER_DEVICE("excluded_user_device"),
       @SerializedName("excluded_mobile_device_model")
@@ -428,8 +420,6 @@ public class AdAccountTargetingUnified extends APINode {
       VALUE_OFFICE_TYPE("office_type"),
       @SerializedName("targeting_optimization")
       VALUE_TARGETING_OPTIMIZATION("targeting_optimization"),
-      @SerializedName("direct_install_devices")
-      VALUE_DIRECT_INSTALL_DEVICES("direct_install_devices"),
       @SerializedName("engagement_specs")
       VALUE_ENGAGEMENT_SPECS("engagement_specs"),
       @SerializedName("excluded_engagement_specs")
@@ -454,16 +444,6 @@ public class AdAccountTargetingUnified extends APINode {
       VALUE_INTEREST_DEFAULTS_SOURCE("interest_defaults_source"),
       @SerializedName("alternate_auto_targeting_option")
       VALUE_ALTERNATE_AUTO_TARGETING_OPTION("alternate_auto_targeting_option"),
-      @SerializedName("contextual_targeting_categories")
-      VALUE_CONTEXTUAL_TARGETING_CATEGORIES("contextual_targeting_categories"),
-      @SerializedName("topic")
-      VALUE_TOPIC("topic"),
-      @SerializedName("format")
-      VALUE_FORMAT("format"),
-      @SerializedName("trending")
-      VALUE_TRENDING("trending"),
-      @SerializedName("gatekeepers")
-      VALUE_GATEKEEPERS("gatekeepers"),
       NULL(null);
 
       private String value;

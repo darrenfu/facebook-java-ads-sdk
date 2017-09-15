@@ -96,7 +96,7 @@ public class AdLabel extends APINode {
   public static APINodeList<AdLabel> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<AdLabel>)(
       new APIRequest<AdLabel>(context, "", "/", "GET", AdLabel.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -306,8 +306,6 @@ public class AdLabel extends APINode {
     };
 
     public static final String[] FIELDS = {
-      "account_id",
-      "actor_id",
       "adlabels",
       "applink_treatment",
       "body",
@@ -331,14 +329,12 @@ public class AdLabel extends APINode {
       "object_url",
       "platform_customizations",
       "product_set_id",
-      "status",
+      "run_status",
       "template_url",
-      "template_url_spec",
       "thumbnail_url",
       "title",
       "url_tags",
       "use_page_actor_override",
-      "video_id",
     };
 
     @Override
@@ -410,20 +406,6 @@ public class AdLabel extends APINode {
       return this;
     }
 
-    public APIRequestGetAdCreatives requestAccountIdField () {
-      return this.requestAccountIdField(true);
-    }
-    public APIRequestGetAdCreatives requestAccountIdField (boolean value) {
-      this.requestField("account_id", value);
-      return this;
-    }
-    public APIRequestGetAdCreatives requestActorIdField () {
-      return this.requestActorIdField(true);
-    }
-    public APIRequestGetAdCreatives requestActorIdField (boolean value) {
-      this.requestField("actor_id", value);
-      return this;
-    }
     public APIRequestGetAdCreatives requestAdlabelsField () {
       return this.requestAdlabelsField(true);
     }
@@ -585,11 +567,11 @@ public class AdLabel extends APINode {
       this.requestField("product_set_id", value);
       return this;
     }
-    public APIRequestGetAdCreatives requestStatusField () {
-      return this.requestStatusField(true);
+    public APIRequestGetAdCreatives requestRunStatusField () {
+      return this.requestRunStatusField(true);
     }
-    public APIRequestGetAdCreatives requestStatusField (boolean value) {
-      this.requestField("status", value);
+    public APIRequestGetAdCreatives requestRunStatusField (boolean value) {
+      this.requestField("run_status", value);
       return this;
     }
     public APIRequestGetAdCreatives requestTemplateUrlField () {
@@ -597,13 +579,6 @@ public class AdLabel extends APINode {
     }
     public APIRequestGetAdCreatives requestTemplateUrlField (boolean value) {
       this.requestField("template_url", value);
-      return this;
-    }
-    public APIRequestGetAdCreatives requestTemplateUrlSpecField () {
-      return this.requestTemplateUrlSpecField(true);
-    }
-    public APIRequestGetAdCreatives requestTemplateUrlSpecField (boolean value) {
-      this.requestField("template_url_spec", value);
       return this;
     }
     public APIRequestGetAdCreatives requestThumbnailUrlField () {
@@ -632,13 +607,6 @@ public class AdLabel extends APINode {
     }
     public APIRequestGetAdCreatives requestUsePageActorOverrideField (boolean value) {
       this.requestField("use_page_actor_override", value);
-      return this;
-    }
-    public APIRequestGetAdCreatives requestVideoIdField () {
-      return this.requestVideoIdField(true);
-    }
-    public APIRequestGetAdCreatives requestVideoIdField (boolean value) {
-      this.requestField("video_id", value);
       return this;
     }
   }
@@ -673,8 +641,6 @@ public class AdLabel extends APINode {
       "last_updated_by_app_id",
       "name",
       "recommendations",
-      "source_ad",
-      "source_ad_id",
       "status",
       "tracking_specs",
       "updated_time",
@@ -882,20 +848,6 @@ public class AdLabel extends APINode {
       this.requestField("recommendations", value);
       return this;
     }
-    public APIRequestGetAds requestSourceAdField () {
-      return this.requestSourceAdField(true);
-    }
-    public APIRequestGetAds requestSourceAdField (boolean value) {
-      this.requestField("source_ad", value);
-      return this;
-    }
-    public APIRequestGetAds requestSourceAdIdField () {
-      return this.requestSourceAdIdField(true);
-    }
-    public APIRequestGetAds requestSourceAdIdField (boolean value) {
-      this.requestField("source_ad_id", value);
-      return this;
-    }
     public APIRequestGetAds requestStatusField () {
       return this.requestStatusField(true);
     }
@@ -933,7 +885,7 @@ public class AdLabel extends APINode {
       "account_id",
       "adlabels",
       "adset_schedule",
-      "attribution_spec",
+      "attribution_window_days",
       "bid_amount",
       "bid_info",
       "billing_event",
@@ -963,8 +915,6 @@ public class AdLabel extends APINode {
       "recurring_budget_semantics",
       "rf_prediction_id",
       "rtb_flag",
-      "source_adset",
-      "source_adset_id",
       "start_time",
       "status",
       "targeting",
@@ -1064,11 +1014,11 @@ public class AdLabel extends APINode {
       this.requestField("adset_schedule", value);
       return this;
     }
-    public APIRequestGetAdSets requestAttributionSpecField () {
-      return this.requestAttributionSpecField(true);
+    public APIRequestGetAdSets requestAttributionWindowDaysField () {
+      return this.requestAttributionWindowDaysField(true);
     }
-    public APIRequestGetAdSets requestAttributionSpecField (boolean value) {
-      this.requestField("attribution_spec", value);
+    public APIRequestGetAdSets requestAttributionWindowDaysField (boolean value) {
+      this.requestField("attribution_window_days", value);
       return this;
     }
     public APIRequestGetAdSets requestBidAmountField () {
@@ -1274,20 +1224,6 @@ public class AdLabel extends APINode {
       this.requestField("rtb_flag", value);
       return this;
     }
-    public APIRequestGetAdSets requestSourceAdsetField () {
-      return this.requestSourceAdsetField(true);
-    }
-    public APIRequestGetAdSets requestSourceAdsetField (boolean value) {
-      this.requestField("source_adset", value);
-      return this;
-    }
-    public APIRequestGetAdSets requestSourceAdsetIdField () {
-      return this.requestSourceAdsetIdField(true);
-    }
-    public APIRequestGetAdSets requestSourceAdsetIdField (boolean value) {
-      this.requestField("source_adset_id", value);
-      return this;
-    }
     public APIRequestGetAdSets requestStartTimeField () {
       return this.requestStartTimeField(true);
     }
@@ -1352,10 +1288,8 @@ public class AdLabel extends APINode {
     public static final String[] FIELDS = {
       "account_id",
       "adlabels",
-      "brand_lift_studies",
       "budget_rebalance_flag",
       "buying_type",
-      "can_create_brand_lift_study",
       "can_use_spend_cap",
       "configured_status",
       "created_time",
@@ -1364,8 +1298,6 @@ public class AdLabel extends APINode {
       "name",
       "objective",
       "recommendations",
-      "source_campaign",
-      "source_campaign_id",
       "spend_cap",
       "start_time",
       "status",
@@ -1456,13 +1388,6 @@ public class AdLabel extends APINode {
       this.requestField("adlabels", value);
       return this;
     }
-    public APIRequestGetCampaigns requestBrandLiftStudiesField () {
-      return this.requestBrandLiftStudiesField(true);
-    }
-    public APIRequestGetCampaigns requestBrandLiftStudiesField (boolean value) {
-      this.requestField("brand_lift_studies", value);
-      return this;
-    }
     public APIRequestGetCampaigns requestBudgetRebalanceFlagField () {
       return this.requestBudgetRebalanceFlagField(true);
     }
@@ -1475,13 +1400,6 @@ public class AdLabel extends APINode {
     }
     public APIRequestGetCampaigns requestBuyingTypeField (boolean value) {
       this.requestField("buying_type", value);
-      return this;
-    }
-    public APIRequestGetCampaigns requestCanCreateBrandLiftStudyField () {
-      return this.requestCanCreateBrandLiftStudyField(true);
-    }
-    public APIRequestGetCampaigns requestCanCreateBrandLiftStudyField (boolean value) {
-      this.requestField("can_create_brand_lift_study", value);
       return this;
     }
     public APIRequestGetCampaigns requestCanUseSpendCapField () {
@@ -1538,20 +1456,6 @@ public class AdLabel extends APINode {
     }
     public APIRequestGetCampaigns requestRecommendationsField (boolean value) {
       this.requestField("recommendations", value);
-      return this;
-    }
-    public APIRequestGetCampaigns requestSourceCampaignField () {
-      return this.requestSourceCampaignField(true);
-    }
-    public APIRequestGetCampaigns requestSourceCampaignField (boolean value) {
-      this.requestField("source_campaign", value);
-      return this;
-    }
-    public APIRequestGetCampaigns requestSourceCampaignIdField () {
-      return this.requestSourceCampaignIdField(true);
-    }
-    public APIRequestGetCampaigns requestSourceCampaignIdField (boolean value) {
-      this.requestField("source_campaign_id", value);
       return this;
     }
     public APIRequestGetCampaigns requestSpendCapField () {

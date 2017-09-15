@@ -76,7 +76,7 @@ public class ReachFrequencyPrediction extends APINode {
   @SerializedName("external_maximum_budget")
   private Long mExternalMaximumBudget = null;
   @SerializedName("external_maximum_impression")
-  private String mExternalMaximumImpression = null;
+  private Long mExternalMaximumImpression = null;
   @SerializedName("external_maximum_reach")
   private Long mExternalMaximumReach = null;
   @SerializedName("external_minimum_budget")
@@ -97,8 +97,6 @@ public class ReachFrequencyPrediction extends APINode {
   private String mId = null;
   @SerializedName("instagram_destination_id")
   private String mInstagramDestinationId = null;
-  @SerializedName("interval_frequency_cap")
-  private Long mIntervalFrequencyCap = null;
   @SerializedName("interval_frequency_cap_reset_period")
   private Long mIntervalFrequencyCapResetPeriod = null;
   @SerializedName("name")
@@ -120,7 +118,7 @@ public class ReachFrequencyPrediction extends APINode {
   @SerializedName("target_audience_size")
   private Long mTargetAudienceSize = null;
   @SerializedName("target_spec")
-  private Targeting mTargetSpec = null;
+  private String mTargetSpec = null;
   @SerializedName("time_created")
   private String mTimeCreated = null;
   @SerializedName("time_updated")
@@ -160,7 +158,7 @@ public class ReachFrequencyPrediction extends APINode {
   public static APINodeList<ReachFrequencyPrediction> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<ReachFrequencyPrediction>)(
       new APIRequest<ReachFrequencyPrediction>(context, "", "/", "GET", ReachFrequencyPrediction.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -358,7 +356,7 @@ public class ReachFrequencyPrediction extends APINode {
     return mExternalMaximumBudget;
   }
 
-  public String getFieldExternalMaximumImpression() {
+  public Long getFieldExternalMaximumImpression() {
     return mExternalMaximumImpression;
   }
 
@@ -402,10 +400,6 @@ public class ReachFrequencyPrediction extends APINode {
     return mInstagramDestinationId;
   }
 
-  public Long getFieldIntervalFrequencyCap() {
-    return mIntervalFrequencyCap;
-  }
-
   public Long getFieldIntervalFrequencyCapResetPeriod() {
     return mIntervalFrequencyCapResetPeriod;
   }
@@ -446,7 +440,7 @@ public class ReachFrequencyPrediction extends APINode {
     return mTargetAudienceSize;
   }
 
-  public Targeting getFieldTargetSpec() {
+  public String getFieldTargetSpec() {
     return mTargetSpec;
   }
 
@@ -494,7 +488,6 @@ public class ReachFrequencyPrediction extends APINode {
       "holdout_percentage",
       "id",
       "instagram_destination_id",
-      "interval_frequency_cap",
       "interval_frequency_cap_reset_period",
       "name",
       "pause_periods",
@@ -740,13 +733,6 @@ public class ReachFrequencyPrediction extends APINode {
       this.requestField("instagram_destination_id", value);
       return this;
     }
-    public APIRequestGet requestIntervalFrequencyCapField () {
-      return this.requestIntervalFrequencyCapField(true);
-    }
-    public APIRequestGet requestIntervalFrequencyCapField (boolean value) {
-      this.requestField("interval_frequency_cap", value);
-      return this;
-    }
     public APIRequestGet requestIntervalFrequencyCapResetPeriodField () {
       return this.requestIntervalFrequencyCapResetPeriodField(true);
     }
@@ -903,7 +889,6 @@ public class ReachFrequencyPrediction extends APINode {
     this.mHoldoutPercentage = instance.mHoldoutPercentage;
     this.mId = instance.mId;
     this.mInstagramDestinationId = instance.mInstagramDestinationId;
-    this.mIntervalFrequencyCap = instance.mIntervalFrequencyCap;
     this.mIntervalFrequencyCapResetPeriod = instance.mIntervalFrequencyCapResetPeriod;
     this.mName = instance.mName;
     this.mPausePeriods = instance.mPausePeriods;

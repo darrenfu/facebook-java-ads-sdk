@@ -118,7 +118,7 @@ public class AdAsyncRequestSet extends APINode {
   public static APINodeList<AdAsyncRequestSet> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<AdAsyncRequestSet>)(
       new APIRequest<AdAsyncRequestSet>(context, "", "/", "GET", AdAsyncRequestSet.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -357,7 +357,6 @@ public class AdAsyncRequestSet extends APINode {
       "result",
       "scope_object_id",
       "status",
-      "type",
       "updated_time",
     };
 
@@ -486,13 +485,6 @@ public class AdAsyncRequestSet extends APINode {
     }
     public APIRequestGetRequests requestStatusField (boolean value) {
       this.requestField("status", value);
-      return this;
-    }
-    public APIRequestGetRequests requestTypeField () {
-      return this.requestTypeField(true);
-    }
-    public APIRequestGetRequests requestTypeField (boolean value) {
-      this.requestField("type", value);
       return this;
     }
     public APIRequestGetRequests requestUpdatedTimeField () {

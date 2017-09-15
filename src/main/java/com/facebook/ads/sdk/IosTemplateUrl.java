@@ -23,18 +23,12 @@
 
 package com.facebook.ads.sdk;
 
-import java.io.File;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -50,29 +44,27 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
  * pull request for this class.
  *
  */
-public class TargetingGeoLocationPoliticalDistrict extends APINode {
-  @SerializedName("country")
-  private String mCountry = null;
-  @SerializedName("key")
-  private String mKey = null;
-  @SerializedName("name")
-  private String mName = null;
-  @SerializedName("political_district")
-  private String mPoliticalDistrict = null;
+public class IosTemplateUrl extends APINode {
+  @SerializedName("app_name")
+  private String mAppName = null;
+  @SerializedName("app_store_id")
+  private String mAppStoreId = null;
+  @SerializedName("url")
+  private String mUrl = null;
   protected static Gson gson = null;
 
-  public TargetingGeoLocationPoliticalDistrict() {
+  public IosTemplateUrl() {
   }
 
   public String getId() {
     return null;
   }
-  public static TargetingGeoLocationPoliticalDistrict loadJSON(String json, APIContext context) {
-    TargetingGeoLocationPoliticalDistrict targetingGeoLocationPoliticalDistrict = getGson().fromJson(json, TargetingGeoLocationPoliticalDistrict.class);
+  public static IosTemplateUrl loadJSON(String json, APIContext context) {
+      IosTemplateUrl iosTemplateUrl = getGson().fromJson(json, IosTemplateUrl.class);
     if (context.isDebug()) {
       JsonParser parser = new JsonParser();
       JsonElement o1 = parser.parse(json);
-      JsonElement o2 = parser.parse(targetingGeoLocationPoliticalDistrict.toString());
+      JsonElement o2 = parser.parse(iosTemplateUrl.toString());
       if (o1.getAsJsonObject().get("__fb_trace_id__") != null) {
         o2.getAsJsonObject().add("__fb_trace_id__", o1.getAsJsonObject().get("__fb_trace_id__"));
       }
@@ -82,13 +74,13 @@ public class TargetingGeoLocationPoliticalDistrict extends APINode {
         context.log("[Object]" + o2);
       };
     }
-    targetingGeoLocationPoliticalDistrict.context = context;
-    targetingGeoLocationPoliticalDistrict.rawValue = json;
-    return targetingGeoLocationPoliticalDistrict;
+    iosTemplateUrl.context = context;
+    iosTemplateUrl.rawValue = json;
+    return iosTemplateUrl;
   }
 
-  public static APINodeList<TargetingGeoLocationPoliticalDistrict> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
-    APINodeList<TargetingGeoLocationPoliticalDistrict> targetingGeoLocationPoliticalDistricts = new APINodeList<TargetingGeoLocationPoliticalDistrict>(request, json);
+  public static APINodeList<IosTemplateUrl> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
+    APINodeList<IosTemplateUrl> iosTemplateUrls = new APINodeList<IosTemplateUrl>(request, json);
     JsonArray arr;
     JsonObject obj;
     JsonParser parser = new JsonParser();
@@ -99,9 +91,9 @@ public class TargetingGeoLocationPoliticalDistrict extends APINode {
         // First, check if it's a pure JSON Array
         arr = result.getAsJsonArray();
         for (int i = 0; i < arr.size(); i++) {
-          targetingGeoLocationPoliticalDistricts.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+            iosTemplateUrls.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
         };
-        return targetingGeoLocationPoliticalDistricts;
+        return iosTemplateUrls;
       } else if (result.isJsonObject()) {
         obj = result.getAsJsonObject();
         if (obj.has("data")) {
@@ -109,13 +101,13 @@ public class TargetingGeoLocationPoliticalDistrict extends APINode {
             JsonObject paging = obj.get("paging").getAsJsonObject().get("cursors").getAsJsonObject();
             String before = paging.has("before") ? paging.get("before").getAsString() : null;
             String after = paging.has("after") ? paging.get("after").getAsString() : null;
-            targetingGeoLocationPoliticalDistricts.setPaging(before, after);
+            iosTemplateUrls.setPaging(before, after);
           }
           if (obj.get("data").isJsonArray()) {
             // Second, check if it's a JSON array with "data"
             arr = obj.get("data").getAsJsonArray();
             for (int i = 0; i < arr.size(); i++) {
-              targetingGeoLocationPoliticalDistricts.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+                iosTemplateUrls.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
             };
           } else if (obj.get("data").isJsonObject()) {
             // Third, check if it's a JSON object with "data"
@@ -126,23 +118,23 @@ public class TargetingGeoLocationPoliticalDistrict extends APINode {
                 isRedownload = true;
                 obj = obj.getAsJsonObject(s);
                 for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-                  targetingGeoLocationPoliticalDistricts.add(loadJSON(entry.getValue().toString(), context));
+                    iosTemplateUrls.add(loadJSON(entry.getValue().toString(), context));
                 }
                 break;
               }
             }
             if (!isRedownload) {
-              targetingGeoLocationPoliticalDistricts.add(loadJSON(obj.toString(), context));
+                iosTemplateUrls.add(loadJSON(obj.toString(), context));
             }
           }
-          return targetingGeoLocationPoliticalDistricts;
+          return iosTemplateUrls;
         } else if (obj.has("images")) {
           // Fourth, check if it's a map of image objects
           obj = obj.get("images").getAsJsonObject();
           for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-              targetingGeoLocationPoliticalDistricts.add(loadJSON(entry.getValue().toString(), context));
+              iosTemplateUrls.add(loadJSON(entry.getValue().toString(), context));
           }
-          return targetingGeoLocationPoliticalDistricts;
+          return iosTemplateUrls;
         } else {
           // Fifth, check if it's an array of objects indexed by id
           boolean isIdIndexedArray = true;
@@ -159,20 +151,20 @@ public class TargetingGeoLocationPoliticalDistrict extends APINode {
               value.getAsJsonObject().get("id") != null &&
               value.getAsJsonObject().get("id").getAsString().equals(key)
             ) {
-              targetingGeoLocationPoliticalDistricts.add(loadJSON(value.toString(), context));
+                iosTemplateUrls.add(loadJSON(value.toString(), context));
             } else {
               isIdIndexedArray = false;
               break;
             }
           }
           if (isIdIndexedArray) {
-            return targetingGeoLocationPoliticalDistricts;
+            return iosTemplateUrls;
           }
 
           // Sixth, check if it's pure JsonObject
-          targetingGeoLocationPoliticalDistricts.clear();
-          targetingGeoLocationPoliticalDistricts.add(loadJSON(json, context));
-          return targetingGeoLocationPoliticalDistricts;
+          iosTemplateUrls.clear();
+          iosTemplateUrls.add(loadJSON(json, context));
+          return iosTemplateUrls;
         }
       }
     } catch (Exception e) {
@@ -200,44 +192,32 @@ public class TargetingGeoLocationPoliticalDistrict extends APINode {
   }
 
 
-  public String getFieldCountry() {
-    return mCountry;
+  public String getFieldAppName() {
+    return mAppName;
   }
 
-  public TargetingGeoLocationPoliticalDistrict setFieldCountry(String value) {
-    this.mCountry = value;
+  public IosTemplateUrl setFieldAppName(String value) {
+    this.mAppName = value;
     return this;
   }
 
-  public String getFieldKey() {
-    return mKey;
+  public String getFieldAppStoreId() {
+    return mAppStoreId;
   }
 
-  public TargetingGeoLocationPoliticalDistrict setFieldKey(String value) {
-    this.mKey = value;
+  public IosTemplateUrl setFieldAppStoreId(String value) {
+    this.mAppStoreId = value;
     return this;
   }
 
-  public String getFieldName() {
-    return mName;
+  public String getFieldUrl() {
+    return mUrl;
   }
 
-  public TargetingGeoLocationPoliticalDistrict setFieldName(String value) {
-    this.mName = value;
+  public IosTemplateUrl setFieldUrl(String value) {
+    this.mUrl = value;
     return this;
   }
-
-  public String getFieldPoliticalDistrict() {
-    return mPoliticalDistrict;
-  }
-
-  public TargetingGeoLocationPoliticalDistrict setFieldPoliticalDistrict(String value) {
-    this.mPoliticalDistrict = value;
-    return this;
-  }
-
-
-
 
   synchronized /*package*/ static Gson getGson() {
     if (gson != null) {
@@ -252,20 +232,19 @@ public class TargetingGeoLocationPoliticalDistrict extends APINode {
     return gson;
   }
 
-  public TargetingGeoLocationPoliticalDistrict copyFrom(TargetingGeoLocationPoliticalDistrict instance) {
-    this.mCountry = instance.mCountry;
-    this.mKey = instance.mKey;
-    this.mName = instance.mName;
-    this.mPoliticalDistrict = instance.mPoliticalDistrict;
+  public IosTemplateUrl copyFrom(IosTemplateUrl instance) {
+    this.mAppName = instance.mAppName;
+    this.mAppStoreId = instance.mAppStoreId;
+    this.mUrl = instance.mUrl;
     this.context = instance.context;
     this.rawValue = instance.rawValue;
     return this;
   }
 
-  public static APIRequest.ResponseParser<TargetingGeoLocationPoliticalDistrict> getParser() {
-    return new APIRequest.ResponseParser<TargetingGeoLocationPoliticalDistrict>() {
-      public APINodeList<TargetingGeoLocationPoliticalDistrict> parseResponse(String response, APIContext context, APIRequest<TargetingGeoLocationPoliticalDistrict> request) throws MalformedResponseException {
-        return TargetingGeoLocationPoliticalDistrict.parseResponse(response, context, request);
+  public static APIRequest.ResponseParser<IosTemplateUrl> getParser() {
+    return new APIRequest.ResponseParser<IosTemplateUrl>() {
+      public APINodeList<IosTemplateUrl> parseResponse(String response, APIContext context, APIRequest<IosTemplateUrl> request) throws MalformedResponseException {
+        return IosTemplateUrl.parseResponse(response, context, request);
       }
     };
   }

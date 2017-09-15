@@ -61,8 +61,6 @@ public class Targeting extends APINode {
   private String mAlternateAutoTargetingOption = null;
   @SerializedName("app_install_state")
   private String mAppInstallState = null;
-  @SerializedName("audience_network_positions")
-  private List<String> mAudienceNetworkPositions = null;
   @SerializedName("behaviors")
   private List<IDName> mBehaviors = null;
   @SerializedName("cities")
@@ -71,8 +69,6 @@ public class Targeting extends APINode {
   private List<Long> mCollegeYears = null;
   @SerializedName("connections")
   private List<IDName> mConnections = null;
-  @SerializedName("contextual_targeting_categories")
-  private List<IDName> mContextualTargetingCategories = null;
   @SerializedName("countries")
   private List<String> mCountries = null;
   @SerializedName("country")
@@ -91,16 +87,10 @@ public class Targeting extends APINode {
   private List<IDName> mEducationSchools = null;
   @SerializedName("education_statuses")
   private List<Long> mEducationStatuses = null;
-  @SerializedName("effective_audience_network_positions")
-  private List<String> mEffectiveAudienceNetworkPositions = null;
   @SerializedName("effective_device_platforms")
   private List<EnumEffectiveDevicePlatforms> mEffectiveDevicePlatforms = null;
   @SerializedName("effective_facebook_positions")
   private List<String> mEffectiveFacebookPositions = null;
-  @SerializedName("effective_instagram_positions")
-  private List<String> mEffectiveInstagramPositions = null;
-  @SerializedName("effective_messenger_positions")
-  private List<String> mEffectiveMessengerPositions = null;
   @SerializedName("effective_publisher_platforms")
   private List<String> mEffectivePublisherPlatforms = null;
   @SerializedName("engagement_specs")
@@ -125,6 +115,8 @@ public class Targeting extends APINode {
   private List<TargetingProductAudienceSpec> mExcludedProductAudienceSpecs = null;
   @SerializedName("excluded_publisher_categories")
   private List<String> mExcludedPublisherCategories = null;
+  @SerializedName("excluded_publisher_domains")
+  private List<String> mExcludedPublisherDomains = null;
   @SerializedName("excluded_publisher_list_ids")
   private List<String> mExcludedPublisherListIds = null;
   @SerializedName("excluded_user_device")
@@ -159,8 +151,6 @@ public class Targeting extends APINode {
   private List<IDName> mIncome = null;
   @SerializedName("industries")
   private List<IDName> mIndustries = null;
-  @SerializedName("instagram_positions")
-  private List<String> mInstagramPositions = null;
   @SerializedName("interested_in")
   private List<Long> mInterestedIn = null;
   @SerializedName("interests")
@@ -171,8 +161,6 @@ public class Targeting extends APINode {
   private List<IDName> mLifeEvents = null;
   @SerializedName("locales")
   private List<Long> mLocales = null;
-  @SerializedName("messenger_positions")
-  private List<String> mMessengerPositions = null;
   @SerializedName("moms")
   private List<IDName> mMoms = null;
   @SerializedName("net_worth")
@@ -407,15 +395,6 @@ public class Targeting extends APINode {
     return this;
   }
 
-  public List<String> getFieldAudienceNetworkPositions() {
-    return mAudienceNetworkPositions;
-  }
-
-  public Targeting setFieldAudienceNetworkPositions(List<String> value) {
-    this.mAudienceNetworkPositions = value;
-    return this;
-  }
-
   public List<IDName> getFieldBehaviors() {
     return mBehaviors;
   }
@@ -465,20 +444,6 @@ public class Targeting extends APINode {
   public Targeting setFieldConnections(String value) {
     Type type = new TypeToken<List<IDName>>(){}.getType();
     this.mConnections = IDName.getGson().fromJson(value, type);
-    return this;
-  }
-  public List<IDName> getFieldContextualTargetingCategories() {
-    return mContextualTargetingCategories;
-  }
-
-  public Targeting setFieldContextualTargetingCategories(List<IDName> value) {
-    this.mContextualTargetingCategories = value;
-    return this;
-  }
-
-  public Targeting setFieldContextualTargetingCategories(String value) {
-    Type type = new TypeToken<List<IDName>>(){}.getType();
-    this.mContextualTargetingCategories = IDName.getGson().fromJson(value, type);
     return this;
   }
   public List<String> getFieldCountries() {
@@ -577,15 +542,6 @@ public class Targeting extends APINode {
     return this;
   }
 
-  public List<String> getFieldEffectiveAudienceNetworkPositions() {
-    return mEffectiveAudienceNetworkPositions;
-  }
-
-  public Targeting setFieldEffectiveAudienceNetworkPositions(List<String> value) {
-    this.mEffectiveAudienceNetworkPositions = value;
-    return this;
-  }
-
   public List<EnumEffectiveDevicePlatforms> getFieldEffectiveDevicePlatforms() {
     return mEffectiveDevicePlatforms;
   }
@@ -601,24 +557,6 @@ public class Targeting extends APINode {
 
   public Targeting setFieldEffectiveFacebookPositions(List<String> value) {
     this.mEffectiveFacebookPositions = value;
-    return this;
-  }
-
-  public List<String> getFieldEffectiveInstagramPositions() {
-    return mEffectiveInstagramPositions;
-  }
-
-  public Targeting setFieldEffectiveInstagramPositions(List<String> value) {
-    this.mEffectiveInstagramPositions = value;
-    return this;
-  }
-
-  public List<String> getFieldEffectiveMessengerPositions() {
-    return mEffectiveMessengerPositions;
-  }
-
-  public Targeting setFieldEffectiveMessengerPositions(List<String> value) {
-    this.mEffectiveMessengerPositions = value;
     return this;
   }
 
@@ -762,6 +700,15 @@ public class Targeting extends APINode {
 
   public Targeting setFieldExcludedPublisherCategories(List<String> value) {
     this.mExcludedPublisherCategories = value;
+    return this;
+  }
+
+  public List<String> getFieldExcludedPublisherDomains() {
+    return mExcludedPublisherDomains;
+  }
+
+  public Targeting setFieldExcludedPublisherDomains(List<String> value) {
+    this.mExcludedPublisherDomains = value;
     return this;
   }
 
@@ -978,15 +925,6 @@ public class Targeting extends APINode {
     this.mIndustries = IDName.getGson().fromJson(value, type);
     return this;
   }
-  public List<String> getFieldInstagramPositions() {
-    return mInstagramPositions;
-  }
-
-  public Targeting setFieldInstagramPositions(List<String> value) {
-    this.mInstagramPositions = value;
-    return this;
-  }
-
   public List<Long> getFieldInterestedIn() {
     return mInterestedIn;
   }
@@ -1039,15 +977,6 @@ public class Targeting extends APINode {
 
   public Targeting setFieldLocales(List<Long> value) {
     this.mLocales = value;
-    return this;
-  }
-
-  public List<String> getFieldMessengerPositions() {
-    return mMessengerPositions;
-  }
-
-  public Targeting setFieldMessengerPositions(List<String> value) {
-    this.mMessengerPositions = value;
     return this;
   }
 
@@ -1319,8 +1248,6 @@ public class Targeting extends APINode {
       VALUE_MOBILE("mobile"),
       @SerializedName("desktop")
       VALUE_DESKTOP("desktop"),
-      @SerializedName("connected_tv")
-      VALUE_CONNECTED_TV("connected_tv"),
       NULL(null);
 
       private String value;
@@ -1340,8 +1267,6 @@ public class Targeting extends APINode {
       VALUE_MOBILE("mobile"),
       @SerializedName("desktop")
       VALUE_DESKTOP("desktop"),
-      @SerializedName("connected_tv")
-      VALUE_CONNECTED_TV("connected_tv"),
       NULL(null);
 
       private String value;
@@ -1376,12 +1301,10 @@ public class Targeting extends APINode {
     this.mAgeMin = instance.mAgeMin;
     this.mAlternateAutoTargetingOption = instance.mAlternateAutoTargetingOption;
     this.mAppInstallState = instance.mAppInstallState;
-    this.mAudienceNetworkPositions = instance.mAudienceNetworkPositions;
     this.mBehaviors = instance.mBehaviors;
     this.mCities = instance.mCities;
     this.mCollegeYears = instance.mCollegeYears;
     this.mConnections = instance.mConnections;
-    this.mContextualTargetingCategories = instance.mContextualTargetingCategories;
     this.mCountries = instance.mCountries;
     this.mCountry = instance.mCountry;
     this.mCountryGroups = instance.mCountryGroups;
@@ -1391,11 +1314,8 @@ public class Targeting extends APINode {
     this.mEducationMajors = instance.mEducationMajors;
     this.mEducationSchools = instance.mEducationSchools;
     this.mEducationStatuses = instance.mEducationStatuses;
-    this.mEffectiveAudienceNetworkPositions = instance.mEffectiveAudienceNetworkPositions;
     this.mEffectiveDevicePlatforms = instance.mEffectiveDevicePlatforms;
     this.mEffectiveFacebookPositions = instance.mEffectiveFacebookPositions;
-    this.mEffectiveInstagramPositions = instance.mEffectiveInstagramPositions;
-    this.mEffectiveMessengerPositions = instance.mEffectiveMessengerPositions;
     this.mEffectivePublisherPlatforms = instance.mEffectivePublisherPlatforms;
     this.mEngagementSpecs = instance.mEngagementSpecs;
     this.mEthnicAffinity = instance.mEthnicAffinity;
@@ -1408,6 +1328,7 @@ public class Targeting extends APINode {
     this.mExcludedMobileDeviceModel = instance.mExcludedMobileDeviceModel;
     this.mExcludedProductAudienceSpecs = instance.mExcludedProductAudienceSpecs;
     this.mExcludedPublisherCategories = instance.mExcludedPublisherCategories;
+    this.mExcludedPublisherDomains = instance.mExcludedPublisherDomains;
     this.mExcludedPublisherListIds = instance.mExcludedPublisherListIds;
     this.mExcludedUserDevice = instance.mExcludedUserDevice;
     this.mExclusions = instance.mExclusions;
@@ -1425,13 +1346,11 @@ public class Targeting extends APINode {
     this.mHouseholdComposition = instance.mHouseholdComposition;
     this.mIncome = instance.mIncome;
     this.mIndustries = instance.mIndustries;
-    this.mInstagramPositions = instance.mInstagramPositions;
     this.mInterestedIn = instance.mInterestedIn;
     this.mInterests = instance.mInterests;
     this.mKeywords = instance.mKeywords;
     this.mLifeEvents = instance.mLifeEvents;
     this.mLocales = instance.mLocales;
-    this.mMessengerPositions = instance.mMessengerPositions;
     this.mMoms = instance.mMoms;
     this.mNetWorth = instance.mNetWorth;
     this.mOfficeType = instance.mOfficeType;

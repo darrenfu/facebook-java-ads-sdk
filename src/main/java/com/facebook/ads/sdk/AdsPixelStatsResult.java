@@ -245,6 +245,8 @@ public class AdsPixelStatsResult extends APINode {
       VALUE_EVENT("event"),
       @SerializedName("host")
       VALUE_HOST("host"),
+      @SerializedName("user_match")
+      VALUE_USER_MATCH("user_match"),
       @SerializedName("pixel_fire")
       VALUE_PIXEL_FIRE("pixel_fire"),
       @SerializedName("url")

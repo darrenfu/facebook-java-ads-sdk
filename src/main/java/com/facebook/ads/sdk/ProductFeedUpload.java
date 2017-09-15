@@ -96,7 +96,7 @@ public class ProductFeedUpload extends APINode {
   public static APINodeList<ProductFeedUpload> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<ProductFeedUpload>)(
       new APIRequest<ProductFeedUpload>(context, "", "/", "GET", ProductFeedUpload.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -284,7 +284,6 @@ public class ProductFeedUpload extends APINode {
 
     public static final String[] FIELDS = {
       "description",
-      "error_type",
       "id",
       "severity",
       "summary",
@@ -365,13 +364,6 @@ public class ProductFeedUpload extends APINode {
     }
     public APIRequestGetErrors requestDescriptionField (boolean value) {
       this.requestField("description", value);
-      return this;
-    }
-    public APIRequestGetErrors requestErrorTypeField () {
-      return this.requestErrorTypeField(true);
-    }
-    public APIRequestGetErrors requestErrorTypeField (boolean value) {
-      this.requestField("error_type", value);
       return this;
     }
     public APIRequestGetErrors requestIdField () {

@@ -50,25 +50,30 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
  * pull request for this class.
  *
  */
-public class ProductCatalogImageSettings extends APINode {
-  @SerializedName("carousel_ad")
-  private ProductCatalogImageSettingsOperation mCarouselAd = null;
-  @SerializedName("single_ad")
-  private ProductCatalogImageSettingsOperation mSingleAd = null;
+public class AdCreativeTemplateUrlSpec extends APINode {
+  @SerializedName("android")
+  private AndroidTemplateUrl mAndroid = null;
+  
+  @SerializedName("ios")
+  private IosTemplateUrl mIos = null;
+
+  @SerializedName("web")
+  private WebTemplateUrl mWeb = null;
+
   protected static Gson gson = null;
 
-  public ProductCatalogImageSettings() {
+  public AdCreativeTemplateUrlSpec() {
   }
 
   public String getId() {
     return null;
   }
-  public static ProductCatalogImageSettings loadJSON(String json, APIContext context) {
-    ProductCatalogImageSettings productCatalogImageSettings = getGson().fromJson(json, ProductCatalogImageSettings.class);
+  public static AdCreativeTemplateUrlSpec loadJSON(String json, APIContext context) {
+      AdCreativeTemplateUrlSpec adCreativeTemplateUrlSpec = getGson().fromJson(json, AdCreativeTemplateUrlSpec.class);
     if (context.isDebug()) {
       JsonParser parser = new JsonParser();
       JsonElement o1 = parser.parse(json);
-      JsonElement o2 = parser.parse(productCatalogImageSettings.toString());
+      JsonElement o2 = parser.parse(adCreativeTemplateUrlSpec.toString());
       if (o1.getAsJsonObject().get("__fb_trace_id__") != null) {
         o2.getAsJsonObject().add("__fb_trace_id__", o1.getAsJsonObject().get("__fb_trace_id__"));
       }
@@ -78,13 +83,13 @@ public class ProductCatalogImageSettings extends APINode {
         context.log("[Object]" + o2);
       };
     }
-    productCatalogImageSettings.context = context;
-    productCatalogImageSettings.rawValue = json;
-    return productCatalogImageSettings;
+    adCreativeTemplateUrlSpec.context = context;
+    adCreativeTemplateUrlSpec.rawValue = json;
+    return adCreativeTemplateUrlSpec;
   }
 
-  public static APINodeList<ProductCatalogImageSettings> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
-    APINodeList<ProductCatalogImageSettings> productCatalogImageSettingss = new APINodeList<ProductCatalogImageSettings>(request, json);
+  public static APINodeList<AdCreativeTemplateUrlSpec> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
+    APINodeList<AdCreativeTemplateUrlSpec> adCreativeTemplateUrlSpecs = new APINodeList<AdCreativeTemplateUrlSpec>(request, json);
     JsonArray arr;
     JsonObject obj;
     JsonParser parser = new JsonParser();
@@ -95,9 +100,9 @@ public class ProductCatalogImageSettings extends APINode {
         // First, check if it's a pure JSON Array
         arr = result.getAsJsonArray();
         for (int i = 0; i < arr.size(); i++) {
-          productCatalogImageSettingss.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+            adCreativeTemplateUrlSpecs.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
         };
-        return productCatalogImageSettingss;
+        return adCreativeTemplateUrlSpecs;
       } else if (result.isJsonObject()) {
         obj = result.getAsJsonObject();
         if (obj.has("data")) {
@@ -105,13 +110,13 @@ public class ProductCatalogImageSettings extends APINode {
             JsonObject paging = obj.get("paging").getAsJsonObject().get("cursors").getAsJsonObject();
             String before = paging.has("before") ? paging.get("before").getAsString() : null;
             String after = paging.has("after") ? paging.get("after").getAsString() : null;
-            productCatalogImageSettingss.setPaging(before, after);
+            adCreativeTemplateUrlSpecs.setPaging(before, after);
           }
           if (obj.get("data").isJsonArray()) {
             // Second, check if it's a JSON array with "data"
             arr = obj.get("data").getAsJsonArray();
             for (int i = 0; i < arr.size(); i++) {
-              productCatalogImageSettingss.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+                adCreativeTemplateUrlSpecs.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
             };
           } else if (obj.get("data").isJsonObject()) {
             // Third, check if it's a JSON object with "data"
@@ -122,23 +127,23 @@ public class ProductCatalogImageSettings extends APINode {
                 isRedownload = true;
                 obj = obj.getAsJsonObject(s);
                 for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-                  productCatalogImageSettingss.add(loadJSON(entry.getValue().toString(), context));
+                    adCreativeTemplateUrlSpecs.add(loadJSON(entry.getValue().toString(), context));
                 }
                 break;
               }
             }
             if (!isRedownload) {
-              productCatalogImageSettingss.add(loadJSON(obj.toString(), context));
+                adCreativeTemplateUrlSpecs.add(loadJSON(obj.toString(), context));
             }
           }
-          return productCatalogImageSettingss;
+          return adCreativeTemplateUrlSpecs;
         } else if (obj.has("images")) {
           // Fourth, check if it's a map of image objects
           obj = obj.get("images").getAsJsonObject();
           for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-              productCatalogImageSettingss.add(loadJSON(entry.getValue().toString(), context));
+              adCreativeTemplateUrlSpecs.add(loadJSON(entry.getValue().toString(), context));
           }
-          return productCatalogImageSettingss;
+          return adCreativeTemplateUrlSpecs;
         } else {
           // Fifth, check if it's an array of objects indexed by id
           boolean isIdIndexedArray = true;
@@ -155,20 +160,20 @@ public class ProductCatalogImageSettings extends APINode {
               value.getAsJsonObject().get("id") != null &&
               value.getAsJsonObject().get("id").getAsString().equals(key)
             ) {
-              productCatalogImageSettingss.add(loadJSON(value.toString(), context));
+                adCreativeTemplateUrlSpecs.add(loadJSON(value.toString(), context));
             } else {
               isIdIndexedArray = false;
               break;
             }
           }
           if (isIdIndexedArray) {
-            return productCatalogImageSettingss;
+            return adCreativeTemplateUrlSpecs;
           }
 
           // Sixth, check if it's pure JsonObject
-          productCatalogImageSettingss.clear();
-          productCatalogImageSettingss.add(loadJSON(json, context));
-          return productCatalogImageSettingss;
+          adCreativeTemplateUrlSpecs.clear();
+          adCreativeTemplateUrlSpecs.add(loadJSON(json, context));
+          return adCreativeTemplateUrlSpecs;
         }
       }
     } catch (Exception e) {
@@ -195,36 +200,50 @@ public class ProductCatalogImageSettings extends APINode {
     return getGson().toJson(this);
   }
 
-
-  public ProductCatalogImageSettingsOperation getFieldCarouselAd() {
-    return mCarouselAd;
+  public AndroidTemplateUrl getFieldAndroid() {
+    return mAndroid;
   }
 
-  public ProductCatalogImageSettings setFieldCarouselAd(ProductCatalogImageSettingsOperation value) {
-    this.mCarouselAd = value;
+  public AdCreativeTemplateUrlSpec setFieldAndroid(AndroidTemplateUrl value) {
+    this.mAndroid = value;
     return this;
   }
 
-  public ProductCatalogImageSettings setFieldCarouselAd(String value) {
-    Type type = new TypeToken<ProductCatalogImageSettingsOperation>(){}.getType();
-    this.mCarouselAd = ProductCatalogImageSettingsOperation.getGson().fromJson(value, type);
+  public AdCreativeTemplateUrlSpec setFieldAndroid(String value) {
+    Type type = new TypeToken<AndroidAppLink>(){}.getType();
+    this.mAndroid = AndroidAppLink.getGson().fromJson(value, type);
     return this;
   }
-  public ProductCatalogImageSettingsOperation getFieldSingleAd() {
-    return mSingleAd;
+  
+  public IosTemplateUrl getFieldIos() {
+    return mIos;
   }
 
-  public ProductCatalogImageSettings setFieldSingleAd(ProductCatalogImageSettingsOperation value) {
-    this.mSingleAd = value;
-    return this;
-  }
-
-  public ProductCatalogImageSettings setFieldSingleAd(String value) {
-    Type type = new TypeToken<ProductCatalogImageSettingsOperation>(){}.getType();
-    this.mSingleAd = ProductCatalogImageSettingsOperation.getGson().fromJson(value, type);
+  public AdCreativeTemplateUrlSpec setFieldIos(IosTemplateUrl value) {
+    this.mIos = value;
     return this;
   }
 
+  public AdCreativeTemplateUrlSpec setFieldIos(String value) {
+    Type type = new TypeToken<AdCreativeTemplateUrlSpec>(){}.getType();
+    this.mIos = IosAppLink.getGson().fromJson(value, type);
+    return this;
+  }
+
+  public WebTemplateUrl getFieldWeb() {
+    return mWeb;
+  }
+
+  public AdCreativeTemplateUrlSpec setFieldWeb(WebTemplateUrl value) {
+    this.mWeb = value;
+    return this;
+  }
+
+  public AdCreativeTemplateUrlSpec setFieldWeb(String value) {
+    Type type = new TypeToken<AdCreativeTemplateUrlSpec>(){}.getType();
+    this.mWeb = WebTemplateUrl.getGson().fromJson(value, type);
+    return this;
+  }
 
 
   synchronized /*package*/ static Gson getGson() {
@@ -240,18 +259,19 @@ public class ProductCatalogImageSettings extends APINode {
     return gson;
   }
 
-  public ProductCatalogImageSettings copyFrom(ProductCatalogImageSettings instance) {
-    this.mCarouselAd = instance.mCarouselAd;
-    this.mSingleAd = instance.mSingleAd;
+  public AdCreativeTemplateUrlSpec copyFrom(AdCreativeTemplateUrlSpec instance) {
+    this.mAndroid = instance.mAndroid;
+    this.mIos = instance.mIos;
+    this.mWeb = instance.mWeb;
     this.context = instance.context;
     this.rawValue = instance.rawValue;
     return this;
   }
 
-  public static APIRequest.ResponseParser<ProductCatalogImageSettings> getParser() {
-    return new APIRequest.ResponseParser<ProductCatalogImageSettings>() {
-      public APINodeList<ProductCatalogImageSettings> parseResponse(String response, APIContext context, APIRequest<ProductCatalogImageSettings> request) throws MalformedResponseException {
-        return ProductCatalogImageSettings.parseResponse(response, context, request);
+  public static APIRequest.ResponseParser<AdCreativeTemplateUrlSpec> getParser() {
+    return new APIRequest.ResponseParser<AdCreativeTemplateUrlSpec>() {
+      public APINodeList<AdCreativeTemplateUrlSpec> parseResponse(String response, APIContext context, APIRequest<AdCreativeTemplateUrlSpec> request) throws MalformedResponseException {
+        return AdCreativeTemplateUrlSpec.parseResponse(response, context, request);
       }
     };
   }

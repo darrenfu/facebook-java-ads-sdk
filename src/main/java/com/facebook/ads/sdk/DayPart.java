@@ -57,8 +57,6 @@ public class DayPart extends APINode {
   private Long mEndMinute = null;
   @SerializedName("start_minute")
   private Long mStartMinute = null;
-  @SerializedName("timezone_type")
-  private String mTimezoneType = null;
   protected static Gson gson = null;
 
   public DayPart() {
@@ -227,15 +225,6 @@ public class DayPart extends APINode {
     return this;
   }
 
-  public String getFieldTimezoneType() {
-    return mTimezoneType;
-  }
-
-  public DayPart setFieldTimezoneType(String value) {
-    this.mTimezoneType = value;
-    return this;
-  }
-
 
 
 
@@ -256,7 +245,6 @@ public class DayPart extends APINode {
     this.mDays = instance.mDays;
     this.mEndMinute = instance.mEndMinute;
     this.mStartMinute = instance.mStartMinute;
-    this.mTimezoneType = instance.mTimezoneType;
     this.context = instance.context;
     this.rawValue = instance.rawValue;
     return this;

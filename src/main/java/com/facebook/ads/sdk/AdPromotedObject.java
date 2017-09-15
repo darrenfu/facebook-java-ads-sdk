@@ -327,6 +327,8 @@ public class AdPromotedObject extends APINode {
       VALUE_PURCHASE("PURCHASE"),
       @SerializedName("LEAD")
       VALUE_LEAD("LEAD"),
+      @SerializedName("FLOW_COMPLETE")
+      VALUE_FLOW_COMPLETE("FLOW_COMPLETE"),
       @SerializedName("LEVEL_ACHIEVED")
       VALUE_LEVEL_ACHIEVED("LEVEL_ACHIEVED"),
       @SerializedName("ACHIEVEMENT_UNLOCKED")

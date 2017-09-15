@@ -51,12 +51,6 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
  *
  */
 public class LeadGenQuestion extends APINode {
-  @SerializedName("conditional_questions_choices")
-  private List<Object> mConditionalQuestionsChoices = null;
-  @SerializedName("conditional_questions_group_id")
-  private String mConditionalQuestionsGroupId = null;
-  @SerializedName("dependent_conditional_questions")
-  private List<Object> mDependentConditionalQuestions = null;
   @SerializedName("key")
   private String mKey = null;
   @SerializedName("label")
@@ -206,33 +200,6 @@ public class LeadGenQuestion extends APINode {
   }
 
 
-  public List<Object> getFieldConditionalQuestionsChoices() {
-    return mConditionalQuestionsChoices;
-  }
-
-  public LeadGenQuestion setFieldConditionalQuestionsChoices(List<Object> value) {
-    this.mConditionalQuestionsChoices = value;
-    return this;
-  }
-
-  public String getFieldConditionalQuestionsGroupId() {
-    return mConditionalQuestionsGroupId;
-  }
-
-  public LeadGenQuestion setFieldConditionalQuestionsGroupId(String value) {
-    this.mConditionalQuestionsGroupId = value;
-    return this;
-  }
-
-  public List<Object> getFieldDependentConditionalQuestions() {
-    return mDependentConditionalQuestions;
-  }
-
-  public LeadGenQuestion setFieldDependentConditionalQuestions(List<Object> value) {
-    this.mDependentConditionalQuestions = value;
-    return this;
-  }
-
   public String getFieldKey() {
     return mKey;
   }
@@ -291,9 +258,6 @@ public class LeadGenQuestion extends APINode {
   }
 
   public LeadGenQuestion copyFrom(LeadGenQuestion instance) {
-    this.mConditionalQuestionsChoices = instance.mConditionalQuestionsChoices;
-    this.mConditionalQuestionsGroupId = instance.mConditionalQuestionsGroupId;
-    this.mDependentConditionalQuestions = instance.mDependentConditionalQuestions;
     this.mKey = instance.mKey;
     this.mLabel = instance.mLabel;
     this.mOptions = instance.mOptions;

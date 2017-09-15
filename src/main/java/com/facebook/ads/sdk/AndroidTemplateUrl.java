@@ -50,31 +50,27 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
  * pull request for this class.
  *
  */
-public class AdAccountDeliveryEstimate extends APINode {
-  @SerializedName("bid_estimate")
-  private Object mBidEstimate = null;
-  @SerializedName("daily_outcomes_curve")
-  private List<OutcomePredictionPoint> mDailyOutcomesCurve = null;
-  @SerializedName("estimate_dau")
-  private Object mEstimateDau = null;
-  @SerializedName("estimate_mau")
-  private Object mEstimateMau = null;
-  @SerializedName("estimate_ready")
-  private Boolean mEstimateReady = null;
+public class AndroidTemplateUrl extends APINode {
+  @SerializedName("app_name")
+  private String mAppName = null;
+  @SerializedName("package")
+  private String mPackage = null;
+  @SerializedName("url")
+  private String mUrl = null;
   protected static Gson gson = null;
 
-  public AdAccountDeliveryEstimate() {
+  public AndroidTemplateUrl() {
   }
 
   public String getId() {
     return null;
   }
-  public static AdAccountDeliveryEstimate loadJSON(String json, APIContext context) {
-    AdAccountDeliveryEstimate adAccountDeliveryEstimate = getGson().fromJson(json, AdAccountDeliveryEstimate.class);
+  public static AndroidTemplateUrl loadJSON(String json, APIContext context) {
+      AndroidTemplateUrl androidTemplateUrl = getGson().fromJson(json, AndroidTemplateUrl.class);
     if (context.isDebug()) {
       JsonParser parser = new JsonParser();
       JsonElement o1 = parser.parse(json);
-      JsonElement o2 = parser.parse(adAccountDeliveryEstimate.toString());
+      JsonElement o2 = parser.parse(androidTemplateUrl.toString());
       if (o1.getAsJsonObject().get("__fb_trace_id__") != null) {
         o2.getAsJsonObject().add("__fb_trace_id__", o1.getAsJsonObject().get("__fb_trace_id__"));
       }
@@ -84,13 +80,13 @@ public class AdAccountDeliveryEstimate extends APINode {
         context.log("[Object]" + o2);
       };
     }
-    adAccountDeliveryEstimate.context = context;
-    adAccountDeliveryEstimate.rawValue = json;
-    return adAccountDeliveryEstimate;
+    androidTemplateUrl.context = context;
+    androidTemplateUrl.rawValue = json;
+    return androidTemplateUrl;
   }
 
-  public static APINodeList<AdAccountDeliveryEstimate> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
-    APINodeList<AdAccountDeliveryEstimate> adAccountDeliveryEstimates = new APINodeList<AdAccountDeliveryEstimate>(request, json);
+  public static APINodeList<AndroidTemplateUrl> parseResponse(String json, APIContext context, APIRequest request) throws MalformedResponseException {
+    APINodeList<AndroidTemplateUrl> androidTemplateUrls = new APINodeList<AndroidTemplateUrl>(request, json);
     JsonArray arr;
     JsonObject obj;
     JsonParser parser = new JsonParser();
@@ -101,9 +97,9 @@ public class AdAccountDeliveryEstimate extends APINode {
         // First, check if it's a pure JSON Array
         arr = result.getAsJsonArray();
         for (int i = 0; i < arr.size(); i++) {
-          adAccountDeliveryEstimates.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+            androidTemplateUrls.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
         };
-        return adAccountDeliveryEstimates;
+        return androidTemplateUrls;
       } else if (result.isJsonObject()) {
         obj = result.getAsJsonObject();
         if (obj.has("data")) {
@@ -111,13 +107,13 @@ public class AdAccountDeliveryEstimate extends APINode {
             JsonObject paging = obj.get("paging").getAsJsonObject().get("cursors").getAsJsonObject();
             String before = paging.has("before") ? paging.get("before").getAsString() : null;
             String after = paging.has("after") ? paging.get("after").getAsString() : null;
-            adAccountDeliveryEstimates.setPaging(before, after);
+            androidTemplateUrls.setPaging(before, after);
           }
           if (obj.get("data").isJsonArray()) {
             // Second, check if it's a JSON array with "data"
             arr = obj.get("data").getAsJsonArray();
             for (int i = 0; i < arr.size(); i++) {
-              adAccountDeliveryEstimates.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
+                androidTemplateUrls.add(loadJSON(arr.get(i).getAsJsonObject().toString(), context));
             };
           } else if (obj.get("data").isJsonObject()) {
             // Third, check if it's a JSON object with "data"
@@ -128,23 +124,23 @@ public class AdAccountDeliveryEstimate extends APINode {
                 isRedownload = true;
                 obj = obj.getAsJsonObject(s);
                 for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-                  adAccountDeliveryEstimates.add(loadJSON(entry.getValue().toString(), context));
+                    androidTemplateUrls.add(loadJSON(entry.getValue().toString(), context));
                 }
                 break;
               }
             }
             if (!isRedownload) {
-              adAccountDeliveryEstimates.add(loadJSON(obj.toString(), context));
+                androidTemplateUrls.add(loadJSON(obj.toString(), context));
             }
           }
-          return adAccountDeliveryEstimates;
+          return androidTemplateUrls;
         } else if (obj.has("images")) {
           // Fourth, check if it's a map of image objects
           obj = obj.get("images").getAsJsonObject();
           for (Map.Entry<String, JsonElement> entry : obj.entrySet()) {
-              adAccountDeliveryEstimates.add(loadJSON(entry.getValue().toString(), context));
+              androidTemplateUrls.add(loadJSON(entry.getValue().toString(), context));
           }
-          return adAccountDeliveryEstimates;
+          return androidTemplateUrls;
         } else {
           // Fifth, check if it's an array of objects indexed by id
           boolean isIdIndexedArray = true;
@@ -161,20 +157,20 @@ public class AdAccountDeliveryEstimate extends APINode {
               value.getAsJsonObject().get("id") != null &&
               value.getAsJsonObject().get("id").getAsString().equals(key)
             ) {
-              adAccountDeliveryEstimates.add(loadJSON(value.toString(), context));
+                androidTemplateUrls.add(loadJSON(value.toString(), context));
             } else {
               isIdIndexedArray = false;
               break;
             }
           }
           if (isIdIndexedArray) {
-            return adAccountDeliveryEstimates;
+            return androidTemplateUrls;
           }
 
           // Sixth, check if it's pure JsonObject
-          adAccountDeliveryEstimates.clear();
-          adAccountDeliveryEstimates.add(loadJSON(json, context));
-          return adAccountDeliveryEstimates;
+          androidTemplateUrls.clear();
+          androidTemplateUrls.add(loadJSON(json, context));
+          return androidTemplateUrls;
         }
       }
     } catch (Exception e) {
@@ -202,111 +198,32 @@ public class AdAccountDeliveryEstimate extends APINode {
   }
 
 
-  public Object getFieldBidEstimate() {
-    return mBidEstimate;
+  public String getFieldAppName() {
+    return mAppName;
   }
 
-  public AdAccountDeliveryEstimate setFieldBidEstimate(Object value) {
-    this.mBidEstimate = value;
+  public AndroidTemplateUrl setFieldAppName(String value) {
+    this.mAppName = value;
     return this;
   }
 
-  public List<OutcomePredictionPoint> getFieldDailyOutcomesCurve() {
-    return mDailyOutcomesCurve;
+  public String getFieldPackage() {
+    return mPackage;
   }
 
-  public AdAccountDeliveryEstimate setFieldDailyOutcomesCurve(List<OutcomePredictionPoint> value) {
-    this.mDailyOutcomesCurve = value;
+  public AndroidTemplateUrl setFieldPackage(String value) {
+    this.mPackage = value;
     return this;
   }
 
-  public AdAccountDeliveryEstimate setFieldDailyOutcomesCurve(String value) {
-    Type type = new TypeToken<List<OutcomePredictionPoint>>(){}.getType();
-    this.mDailyOutcomesCurve = OutcomePredictionPoint.getGson().fromJson(value, type);
+  public String getFieldUrl() {
+    return mUrl;
+  }
+
+  public AndroidTemplateUrl setFieldUrl(String value) {
+    this.mUrl = value;
     return this;
   }
-  public Object getFieldEstimateDau() {
-    return mEstimateDau;
-  }
-
-  public AdAccountDeliveryEstimate setFieldEstimateDau(Object value) {
-    this.mEstimateDau = value;
-    return this;
-  }
-
-  public Object getFieldEstimateMau() {
-    return mEstimateMau;
-  }
-
-  public AdAccountDeliveryEstimate setFieldEstimateMau(Object value) {
-    this.mEstimateMau = value;
-    return this;
-  }
-
-  public Boolean getFieldEstimateReady() {
-    return mEstimateReady;
-  }
-
-  public AdAccountDeliveryEstimate setFieldEstimateReady(Boolean value) {
-    this.mEstimateReady = value;
-    return this;
-  }
-
-
-
-  public static enum EnumOptimizationGoal {
-      @SerializedName("NONE")
-      VALUE_NONE("NONE"),
-      @SerializedName("APP_INSTALLS")
-      VALUE_APP_INSTALLS("APP_INSTALLS"),
-      @SerializedName("BRAND_AWARENESS")
-      VALUE_BRAND_AWARENESS("BRAND_AWARENESS"),
-      @SerializedName("CLICKS")
-      VALUE_CLICKS("CLICKS"),
-      @SerializedName("ENGAGED_USERS")
-      VALUE_ENGAGED_USERS("ENGAGED_USERS"),
-      @SerializedName("EVENT_RESPONSES")
-      VALUE_EVENT_RESPONSES("EVENT_RESPONSES"),
-      @SerializedName("IMPRESSIONS")
-      VALUE_IMPRESSIONS("IMPRESSIONS"),
-      @SerializedName("LEAD_GENERATION")
-      VALUE_LEAD_GENERATION("LEAD_GENERATION"),
-      @SerializedName("LINK_CLICKS")
-      VALUE_LINK_CLICKS("LINK_CLICKS"),
-      @SerializedName("OFFER_CLAIMS")
-      VALUE_OFFER_CLAIMS("OFFER_CLAIMS"),
-      @SerializedName("OFFSITE_CONVERSIONS")
-      VALUE_OFFSITE_CONVERSIONS("OFFSITE_CONVERSIONS"),
-      @SerializedName("PAGE_ENGAGEMENT")
-      VALUE_PAGE_ENGAGEMENT("PAGE_ENGAGEMENT"),
-      @SerializedName("PAGE_LIKES")
-      VALUE_PAGE_LIKES("PAGE_LIKES"),
-      @SerializedName("POST_ENGAGEMENT")
-      VALUE_POST_ENGAGEMENT("POST_ENGAGEMENT"),
-      @SerializedName("REACH")
-      VALUE_REACH("REACH"),
-      @SerializedName("SOCIAL_IMPRESSIONS")
-      VALUE_SOCIAL_IMPRESSIONS("SOCIAL_IMPRESSIONS"),
-      @SerializedName("VIDEO_VIEWS")
-      VALUE_VIDEO_VIEWS("VIDEO_VIEWS"),
-      @SerializedName("APP_DOWNLOADS")
-      VALUE_APP_DOWNLOADS("APP_DOWNLOADS"),
-      @SerializedName("LANDING_PAGE_VIEWS")
-      VALUE_LANDING_PAGE_VIEWS("LANDING_PAGE_VIEWS"),
-      NULL(null);
-
-      private String value;
-
-      private EnumOptimizationGoal(String value) {
-        this.value = value;
-      }
-
-      @Override
-      public String toString() {
-        return value;
-      }
-  }
-
 
   synchronized /*package*/ static Gson getGson() {
     if (gson != null) {
@@ -321,21 +238,19 @@ public class AdAccountDeliveryEstimate extends APINode {
     return gson;
   }
 
-  public AdAccountDeliveryEstimate copyFrom(AdAccountDeliveryEstimate instance) {
-    this.mBidEstimate = instance.mBidEstimate;
-    this.mDailyOutcomesCurve = instance.mDailyOutcomesCurve;
-    this.mEstimateDau = instance.mEstimateDau;
-    this.mEstimateMau = instance.mEstimateMau;
-    this.mEstimateReady = instance.mEstimateReady;
+  public AndroidTemplateUrl copyFrom(AndroidTemplateUrl instance) {
+    this.mAppName = instance.mAppName;
+    this.mPackage = instance.mPackage;
+    this.mUrl = instance.mUrl;
     this.context = instance.context;
     this.rawValue = instance.rawValue;
     return this;
   }
 
-  public static APIRequest.ResponseParser<AdAccountDeliveryEstimate> getParser() {
-    return new APIRequest.ResponseParser<AdAccountDeliveryEstimate>() {
-      public APINodeList<AdAccountDeliveryEstimate> parseResponse(String response, APIContext context, APIRequest<AdAccountDeliveryEstimate> request) throws MalformedResponseException {
-        return AdAccountDeliveryEstimate.parseResponse(response, context, request);
+  public static APIRequest.ResponseParser<AndroidAppLink> getParser() {
+    return new APIRequest.ResponseParser<AndroidAppLink>() {
+      public APINodeList<AndroidAppLink> parseResponse(String response, APIContext context, APIRequest<AndroidAppLink> request) throws MalformedResponseException {
+        return AndroidAppLink.parseResponse(response, context, request);
       }
     };
   }

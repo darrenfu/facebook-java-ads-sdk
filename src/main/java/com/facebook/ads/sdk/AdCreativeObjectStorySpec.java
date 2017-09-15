@@ -55,6 +55,8 @@ public class AdCreativeObjectStorySpec extends APINode {
   private String mInstagramActorId = null;
   @SerializedName("link_data")
   private AdCreativeLinkData mLinkData = null;
+  @SerializedName("offer_data")
+  private AdCreativeOfferData mOfferData = null;
   @SerializedName("page_id")
   private String mPageId = null;
   @SerializedName("photo_data")
@@ -229,6 +231,20 @@ public class AdCreativeObjectStorySpec extends APINode {
     this.mLinkData = AdCreativeLinkData.getGson().fromJson(value, type);
     return this;
   }
+  public AdCreativeOfferData getFieldOfferData() {
+    return mOfferData;
+  }
+
+  public AdCreativeObjectStorySpec setFieldOfferData(AdCreativeOfferData value) {
+    this.mOfferData = value;
+    return this;
+  }
+
+  public AdCreativeObjectStorySpec setFieldOfferData(String value) {
+    Type type = new TypeToken<AdCreativeOfferData>(){}.getType();
+    this.mOfferData = AdCreativeOfferData.getGson().fromJson(value, type);
+    return this;
+  }
   public String getFieldPageId() {
     return mPageId;
   }
@@ -313,6 +329,7 @@ public class AdCreativeObjectStorySpec extends APINode {
   public AdCreativeObjectStorySpec copyFrom(AdCreativeObjectStorySpec instance) {
     this.mInstagramActorId = instance.mInstagramActorId;
     this.mLinkData = instance.mLinkData;
+    this.mOfferData = instance.mOfferData;
     this.mPageId = instance.mPageId;
     this.mPhotoData = instance.mPhotoData;
     this.mTemplateData = instance.mTemplateData;

@@ -23,6 +23,7 @@
 package com.facebook.ads.sdk;
 
 import com.google.gson.JsonObject;
+import com.google.common.base.Joiner;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -39,6 +40,8 @@ public class APINode implements APIResponse {
   protected APIContext context = null;
   protected String rawValue = null;
 
+  protected final static Joiner paramJoiner = Joiner.on(",");
+  
   public static APINode loadJSON(String json, APIContext context) {
     APINode result = null;
     result = new APINode();

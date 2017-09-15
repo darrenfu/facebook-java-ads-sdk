@@ -53,8 +53,6 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
 public class CustomConversion extends APINode {
   @SerializedName("account_id")
   private String mAccountId = null;
-  @SerializedName("aggregation_rule")
-  private String mAggregationRule = null;
   @SerializedName("creation_time")
   private String mCreationTime = null;
   @SerializedName("custom_event_type")
@@ -63,8 +61,6 @@ public class CustomConversion extends APINode {
   private Long mDefaultConversionValue = null;
   @SerializedName("description")
   private String mDescription = null;
-  @SerializedName("event_source_type")
-  private String mEventSourceType = null;
   @SerializedName("first_fired_time")
   private String mFirstFiredTime = null;
   @SerializedName("id")
@@ -75,14 +71,14 @@ public class CustomConversion extends APINode {
   private String mLastFiredTime = null;
   @SerializedName("name")
   private String mName = null;
-  @SerializedName("offline_conversion_data_set")
-  private Object mOfflineConversionDataSet = null;
   @SerializedName("pixel")
   private AdsPixel mPixel = null;
+  @SerializedName("pixel_aggregation_rule")
+  private String mPixelAggregationRule = null;
+  @SerializedName("pixel_rule")
+  private String mPixelRule = null;
   @SerializedName("retention_days")
   private Long mRetentionDays = null;
-  @SerializedName("rule")
-  private String mRule = null;
   protected static Gson gson = null;
 
   CustomConversion() {
@@ -118,7 +114,7 @@ public class CustomConversion extends APINode {
   public static APINodeList<CustomConversion> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<CustomConversion>)(
       new APIRequest<CustomConversion>(context, "", "/", "GET", CustomConversion.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -267,14 +263,6 @@ public class CustomConversion extends APINode {
     return new APIRequestGetActivities(this.getPrefixedId().toString(), context);
   }
 
-  public APIRequestDeleteSharedAgencies deleteSharedAgencies() {
-    return new APIRequestDeleteSharedAgencies(this.getPrefixedId().toString(), context);
-  }
-
-  public APIRequestCreateSharedAgency createSharedAgency() {
-    return new APIRequestCreateSharedAgency(this.getPrefixedId().toString(), context);
-  }
-
   public APIRequestGetStats getStats() {
     return new APIRequestGetStats(this.getPrefixedId().toString(), context);
   }
@@ -296,10 +284,6 @@ public class CustomConversion extends APINode {
     return mAccountId;
   }
 
-  public String getFieldAggregationRule() {
-    return mAggregationRule;
-  }
-
   public String getFieldCreationTime() {
     return mCreationTime;
   }
@@ -314,10 +298,6 @@ public class CustomConversion extends APINode {
 
   public String getFieldDescription() {
     return mDescription;
-  }
-
-  public String getFieldEventSourceType() {
-    return mEventSourceType;
   }
 
   public String getFieldFirstFiredTime() {
@@ -340,10 +320,6 @@ public class CustomConversion extends APINode {
     return mName;
   }
 
-  public Object getFieldOfflineConversionDataSet() {
-    return mOfflineConversionDataSet;
-  }
-
   public AdsPixel getFieldPixel() {
     if (mPixel != null) {
       mPixel.context = getContext();
@@ -351,12 +327,16 @@ public class CustomConversion extends APINode {
     return mPixel;
   }
 
-  public Long getFieldRetentionDays() {
-    return mRetentionDays;
+  public String getFieldPixelAggregationRule() {
+    return mPixelAggregationRule;
   }
 
-  public String getFieldRule() {
-    return mRule;
+  public String getFieldPixelRule() {
+    return mPixelRule;
+  }
+
+  public Long getFieldRetentionDays() {
+    return mRetentionDays;
   }
 
 
@@ -467,191 +447,11 @@ public class CustomConversion extends APINode {
 
   }
 
-  public static class APIRequestDeleteSharedAgencies extends APIRequest<APINode> {
+  public static class APIRequestGetStats extends APIRequest<AdsPixelStatsResult> {
 
-    APINodeList<APINode> lastResponse = null;
+    APINodeList<AdsPixelStatsResult> lastResponse = null;
     @Override
-    public APINodeList<APINode> getLastResponse() {
-      return lastResponse;
-    }
-    public static final String[] PARAMS = {
-      "business",
-    };
-
-    public static final String[] FIELDS = {
-    };
-
-    @Override
-    public APINodeList<APINode> parseResponse(String response) throws APIException {
-      return APINode.parseResponse(response, getContext(), this);
-    }
-
-    @Override
-    public APINodeList<APINode> execute() throws APIException {
-      return execute(new HashMap<String, Object>());
-    }
-
-    @Override
-    public APINodeList<APINode> execute(Map<String, Object> extraParams) throws APIException {
-      lastResponse = parseResponse(executeInternal(extraParams));
-      return lastResponse;
-    }
-
-    public APIRequestDeleteSharedAgencies(String nodeId, APIContext context) {
-      super(context, nodeId, "/shared_agencies", "DELETE", Arrays.asList(PARAMS));
-    }
-
-    @Override
-    public APIRequestDeleteSharedAgencies setParam(String param, Object value) {
-      setParamInternal(param, value);
-      return this;
-    }
-
-    @Override
-    public APIRequestDeleteSharedAgencies setParams(Map<String, Object> params) {
-      setParamsInternal(params);
-      return this;
-    }
-
-
-    public APIRequestDeleteSharedAgencies setBusiness (String business) {
-      this.setParam("business", business);
-      return this;
-    }
-
-    public APIRequestDeleteSharedAgencies requestAllFields () {
-      return this.requestAllFields(true);
-    }
-
-    public APIRequestDeleteSharedAgencies requestAllFields (boolean value) {
-      for (String field : FIELDS) {
-        this.requestField(field, value);
-      }
-      return this;
-    }
-
-    @Override
-    public APIRequestDeleteSharedAgencies requestFields (List<String> fields) {
-      return this.requestFields(fields, true);
-    }
-
-    @Override
-    public APIRequestDeleteSharedAgencies requestFields (List<String> fields, boolean value) {
-      for (String field : fields) {
-        this.requestField(field, value);
-      }
-      return this;
-    }
-
-    @Override
-    public APIRequestDeleteSharedAgencies requestField (String field) {
-      this.requestField(field, true);
-      return this;
-    }
-
-    @Override
-    public APIRequestDeleteSharedAgencies requestField (String field, boolean value) {
-      this.requestFieldInternal(field, value);
-      return this;
-    }
-
-  }
-
-  public static class APIRequestCreateSharedAgency extends APIRequest<CustomConversion> {
-
-    CustomConversion lastResponse = null;
-    @Override
-    public CustomConversion getLastResponse() {
-      return lastResponse;
-    }
-    public static final String[] PARAMS = {
-      "business",
-    };
-
-    public static final String[] FIELDS = {
-    };
-
-    @Override
-    public CustomConversion parseResponse(String response) throws APIException {
-      return CustomConversion.parseResponse(response, getContext(), this).head();
-    }
-
-    @Override
-    public CustomConversion execute() throws APIException {
-      return execute(new HashMap<String, Object>());
-    }
-
-    @Override
-    public CustomConversion execute(Map<String, Object> extraParams) throws APIException {
-      lastResponse = parseResponse(executeInternal(extraParams));
-      return lastResponse;
-    }
-
-    public APIRequestCreateSharedAgency(String nodeId, APIContext context) {
-      super(context, nodeId, "/shared_agencies", "POST", Arrays.asList(PARAMS));
-    }
-
-    @Override
-    public APIRequestCreateSharedAgency setParam(String param, Object value) {
-      setParamInternal(param, value);
-      return this;
-    }
-
-    @Override
-    public APIRequestCreateSharedAgency setParams(Map<String, Object> params) {
-      setParamsInternal(params);
-      return this;
-    }
-
-
-    public APIRequestCreateSharedAgency setBusiness (String business) {
-      this.setParam("business", business);
-      return this;
-    }
-
-    public APIRequestCreateSharedAgency requestAllFields () {
-      return this.requestAllFields(true);
-    }
-
-    public APIRequestCreateSharedAgency requestAllFields (boolean value) {
-      for (String field : FIELDS) {
-        this.requestField(field, value);
-      }
-      return this;
-    }
-
-    @Override
-    public APIRequestCreateSharedAgency requestFields (List<String> fields) {
-      return this.requestFields(fields, true);
-    }
-
-    @Override
-    public APIRequestCreateSharedAgency requestFields (List<String> fields, boolean value) {
-      for (String field : fields) {
-        this.requestField(field, value);
-      }
-      return this;
-    }
-
-    @Override
-    public APIRequestCreateSharedAgency requestField (String field) {
-      this.requestField(field, true);
-      return this;
-    }
-
-    @Override
-    public APIRequestCreateSharedAgency requestField (String field, boolean value) {
-      this.requestFieldInternal(field, value);
-      return this;
-    }
-
-  }
-
-  public static class APIRequestGetStats extends APIRequest<CustomConversionStatsResult> {
-
-    APINodeList<CustomConversionStatsResult> lastResponse = null;
-    @Override
-    public APINodeList<CustomConversionStatsResult> getLastResponse() {
+    public APINodeList<AdsPixelStatsResult> getLastResponse() {
       return lastResponse;
     }
     public static final String[] PARAMS = {
@@ -667,17 +467,17 @@ public class CustomConversion extends APINode {
     };
 
     @Override
-    public APINodeList<CustomConversionStatsResult> parseResponse(String response) throws APIException {
-      return CustomConversionStatsResult.parseResponse(response, getContext(), this);
+    public APINodeList<AdsPixelStatsResult> parseResponse(String response) throws APIException {
+      return AdsPixelStatsResult.parseResponse(response, getContext(), this);
     }
 
     @Override
-    public APINodeList<CustomConversionStatsResult> execute() throws APIException {
+    public APINodeList<AdsPixelStatsResult> execute() throws APIException {
       return execute(new HashMap<String, Object>());
     }
 
     @Override
-    public APINodeList<CustomConversionStatsResult> execute(Map<String, Object> extraParams) throws APIException {
+    public APINodeList<AdsPixelStatsResult> execute(Map<String, Object> extraParams) throws APIException {
       lastResponse = parseResponse(executeInternal(extraParams));
       return lastResponse;
     }
@@ -699,7 +499,7 @@ public class CustomConversion extends APINode {
     }
 
 
-    public APIRequestGetStats setAggregation (CustomConversionStatsResult.EnumAggregation aggregation) {
+    public APIRequestGetStats setAggregation (AdsPixelStatsResult.EnumAggregation aggregation) {
       this.setParam("aggregation", aggregation);
       return this;
     }
@@ -873,21 +673,19 @@ public class CustomConversion extends APINode {
 
     public static final String[] FIELDS = {
       "account_id",
-      "aggregation_rule",
       "creation_time",
       "custom_event_type",
       "default_conversion_value",
       "description",
-      "event_source_type",
       "first_fired_time",
       "id",
       "is_archived",
       "last_fired_time",
       "name",
-      "offline_conversion_data_set",
       "pixel",
+      "pixel_aggregation_rule",
+      "pixel_rule",
       "retention_days",
-      "rule",
     };
 
     @Override
@@ -966,13 +764,6 @@ public class CustomConversion extends APINode {
       this.requestField("account_id", value);
       return this;
     }
-    public APIRequestGet requestAggregationRuleField () {
-      return this.requestAggregationRuleField(true);
-    }
-    public APIRequestGet requestAggregationRuleField (boolean value) {
-      this.requestField("aggregation_rule", value);
-      return this;
-    }
     public APIRequestGet requestCreationTimeField () {
       return this.requestCreationTimeField(true);
     }
@@ -999,13 +790,6 @@ public class CustomConversion extends APINode {
     }
     public APIRequestGet requestDescriptionField (boolean value) {
       this.requestField("description", value);
-      return this;
-    }
-    public APIRequestGet requestEventSourceTypeField () {
-      return this.requestEventSourceTypeField(true);
-    }
-    public APIRequestGet requestEventSourceTypeField (boolean value) {
-      this.requestField("event_source_type", value);
       return this;
     }
     public APIRequestGet requestFirstFiredTimeField () {
@@ -1043,13 +827,6 @@ public class CustomConversion extends APINode {
       this.requestField("name", value);
       return this;
     }
-    public APIRequestGet requestOfflineConversionDataSetField () {
-      return this.requestOfflineConversionDataSetField(true);
-    }
-    public APIRequestGet requestOfflineConversionDataSetField (boolean value) {
-      this.requestField("offline_conversion_data_set", value);
-      return this;
-    }
     public APIRequestGet requestPixelField () {
       return this.requestPixelField(true);
     }
@@ -1057,18 +834,25 @@ public class CustomConversion extends APINode {
       this.requestField("pixel", value);
       return this;
     }
+    public APIRequestGet requestPixelAggregationRuleField () {
+      return this.requestPixelAggregationRuleField(true);
+    }
+    public APIRequestGet requestPixelAggregationRuleField (boolean value) {
+      this.requestField("pixel_aggregation_rule", value);
+      return this;
+    }
+    public APIRequestGet requestPixelRuleField () {
+      return this.requestPixelRuleField(true);
+    }
+    public APIRequestGet requestPixelRuleField (boolean value) {
+      this.requestField("pixel_rule", value);
+      return this;
+    }
     public APIRequestGet requestRetentionDaysField () {
       return this.requestRetentionDaysField(true);
     }
     public APIRequestGet requestRetentionDaysField (boolean value) {
       this.requestField("retention_days", value);
-      return this;
-    }
-    public APIRequestGet requestRuleField () {
-      return this.requestRuleField(true);
-    }
-    public APIRequestGet requestRuleField (boolean value) {
-      this.requestField("rule", value);
       return this;
     }
   }
@@ -1194,12 +978,12 @@ public class CustomConversion extends APINode {
       VALUE_INITIATED_CHECKOUT("INITIATED_CHECKOUT"),
       @SerializedName("LEAD")
       VALUE_LEAD("LEAD"),
+      @SerializedName("OTHER")
+      VALUE_OTHER("OTHER"),
       @SerializedName("PURCHASE")
       VALUE_PURCHASE("PURCHASE"),
       @SerializedName("SEARCH")
       VALUE_SEARCH("SEARCH"),
-      @SerializedName("OTHER")
-      VALUE_OTHER("OTHER"),
       NULL(null);
 
       private String value;
@@ -1251,21 +1035,19 @@ public class CustomConversion extends APINode {
 
   public CustomConversion copyFrom(CustomConversion instance) {
     this.mAccountId = instance.mAccountId;
-    this.mAggregationRule = instance.mAggregationRule;
     this.mCreationTime = instance.mCreationTime;
     this.mCustomEventType = instance.mCustomEventType;
     this.mDefaultConversionValue = instance.mDefaultConversionValue;
     this.mDescription = instance.mDescription;
-    this.mEventSourceType = instance.mEventSourceType;
     this.mFirstFiredTime = instance.mFirstFiredTime;
     this.mId = instance.mId;
     this.mIsArchived = instance.mIsArchived;
     this.mLastFiredTime = instance.mLastFiredTime;
     this.mName = instance.mName;
-    this.mOfflineConversionDataSet = instance.mOfflineConversionDataSet;
     this.mPixel = instance.mPixel;
+    this.mPixelAggregationRule = instance.mPixelAggregationRule;
+    this.mPixelRule = instance.mPixelRule;
     this.mRetentionDays = instance.mRetentionDays;
-    this.mRule = instance.mRule;
     this.context = instance.context;
     this.rawValue = instance.rawValue;
     return this;

@@ -65,8 +65,6 @@ public class AdAsyncRequest extends APINode {
   private String mScopeObjectId = null;
   @SerializedName("status")
   private EnumStatus mStatus = null;
-  @SerializedName("type")
-  private String mType = null;
   @SerializedName("updated_time")
   private String mUpdatedTime = null;
   protected static Gson gson = null;
@@ -104,7 +102,7 @@ public class AdAsyncRequest extends APINode {
   public static APINodeList<AdAsyncRequest> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<AdAsyncRequest>)(
       new APIRequest<AdAsyncRequest>(context, "", "/", "GET", AdAsyncRequest.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -285,10 +283,6 @@ public class AdAsyncRequest extends APINode {
     return mStatus;
   }
 
-  public String getFieldType() {
-    return mType;
-  }
-
   public String getFieldUpdatedTime() {
     return mUpdatedTime;
   }
@@ -313,7 +307,6 @@ public class AdAsyncRequest extends APINode {
       "result",
       "scope_object_id",
       "status",
-      "type",
       "updated_time",
     };
 
@@ -435,13 +428,6 @@ public class AdAsyncRequest extends APINode {
       this.requestField("status", value);
       return this;
     }
-    public APIRequestGet requestTypeField () {
-      return this.requestTypeField(true);
-    }
-    public APIRequestGet requestTypeField (boolean value) {
-      this.requestField("type", value);
-      return this;
-    }
     public APIRequestGet requestUpdatedTimeField () {
       return this.requestUpdatedTimeField(true);
     }
@@ -539,7 +525,6 @@ public class AdAsyncRequest extends APINode {
     this.mResult = instance.mResult;
     this.mScopeObjectId = instance.mScopeObjectId;
     this.mStatus = instance.mStatus;
-    this.mType = instance.mType;
     this.mUpdatedTime = instance.mUpdatedTime;
     this.context = instance.context;
     this.rawValue = instance.rawValue;

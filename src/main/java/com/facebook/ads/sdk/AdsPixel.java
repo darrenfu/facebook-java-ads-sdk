@@ -55,12 +55,8 @@ public class AdsPixel extends APINode {
   private String mCode = null;
   @SerializedName("creation_time")
   private String mCreationTime = null;
-  @SerializedName("creator")
-  private User mCreator = null;
   @SerializedName("id")
   private String mId = null;
-  @SerializedName("is_created_by_business")
-  private Boolean mIsCreatedByBusiness = null;
   @SerializedName("last_fired_time")
   private String mLastFiredTime = null;
   @SerializedName("name")
@@ -104,7 +100,7 @@ public class AdsPixel extends APINode {
   public static APINodeList<AdsPixel> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<AdsPixel>)(
       new APIRequest<AdsPixel>(context, "", "/", "GET", AdsPixel.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -282,19 +278,8 @@ public class AdsPixel extends APINode {
     return mCreationTime;
   }
 
-  public User getFieldCreator() {
-    if (mCreator != null) {
-      mCreator.context = getContext();
-    }
-    return mCreator;
-  }
-
   public String getFieldId() {
     return mId;
-  }
-
-  public Boolean getFieldIsCreatedByBusiness() {
-    return mIsCreatedByBusiness;
   }
 
   public String getFieldLastFiredTime() {
@@ -329,7 +314,6 @@ public class AdsPixel extends APINode {
       return lastResponse;
     }
     public static final String[] PARAMS = {
-      "ad_account",
     };
 
     public static final String[] FIELDS = {
@@ -340,7 +324,6 @@ public class AdsPixel extends APINode {
       "description",
       "external_event_source",
       "id",
-      "is_value_based",
       "lookalike_audience_ids",
       "lookalike_spec",
       "name",
@@ -350,7 +333,6 @@ public class AdsPixel extends APINode {
       "pixel_id",
       "retention_days",
       "rule",
-      "rule_aggregation",
       "subtype",
       "time_content_updated",
       "time_created",
@@ -389,11 +371,6 @@ public class AdsPixel extends APINode {
       return this;
     }
 
-
-    public APIRequestGetAudiences setAdAccount (String adAccount) {
-      this.setParam("ad_account", adAccount);
-      return this;
-    }
 
     public APIRequestGetAudiences requestAllFields () {
       return this.requestAllFields(true);
@@ -480,13 +457,6 @@ public class AdsPixel extends APINode {
       this.requestField("id", value);
       return this;
     }
-    public APIRequestGetAudiences requestIsValueBasedField () {
-      return this.requestIsValueBasedField(true);
-    }
-    public APIRequestGetAudiences requestIsValueBasedField (boolean value) {
-      this.requestField("is_value_based", value);
-      return this;
-    }
     public APIRequestGetAudiences requestLookalikeAudienceIdsField () {
       return this.requestLookalikeAudienceIdsField(true);
     }
@@ -550,13 +520,6 @@ public class AdsPixel extends APINode {
       this.requestField("rule", value);
       return this;
     }
-    public APIRequestGetAudiences requestRuleAggregationField () {
-      return this.requestRuleAggregationField(true);
-    }
-    public APIRequestGetAudiences requestRuleAggregationField (boolean value) {
-      this.requestField("rule_aggregation", value);
-      return this;
-    }
     public APIRequestGetAudiences requestSubtypeField () {
       return this.requestSubtypeField(true);
     }
@@ -604,7 +567,6 @@ public class AdsPixel extends APINode {
       "age",
       "agency_client_declaration",
       "amount_spent",
-      "attribution_spec",
       "balance",
       "business",
       "business_city",
@@ -626,7 +588,6 @@ public class AdsPixel extends APINode {
       "has_migrated_permissions",
       "id",
       "io_number",
-      "is_attribution_spec_system_default",
       "is_notifications_enabled",
       "is_personal",
       "is_prepay_account",
@@ -640,8 +601,6 @@ public class AdsPixel extends APINode {
       "owner",
       "partner",
       "rf_spec",
-      "salesforce_invoice_group_id",
-      "show_checkout_experience",
       "spend_cap",
       "tax_id",
       "tax_id_status",
@@ -760,13 +719,6 @@ public class AdsPixel extends APINode {
     }
     public APIRequestGetSharedAccounts requestAmountSpentField (boolean value) {
       this.requestField("amount_spent", value);
-      return this;
-    }
-    public APIRequestGetSharedAccounts requestAttributionSpecField () {
-      return this.requestAttributionSpecField(true);
-    }
-    public APIRequestGetSharedAccounts requestAttributionSpecField (boolean value) {
-      this.requestField("attribution_spec", value);
       return this;
     }
     public APIRequestGetSharedAccounts requestBalanceField () {
@@ -916,13 +868,6 @@ public class AdsPixel extends APINode {
       this.requestField("io_number", value);
       return this;
     }
-    public APIRequestGetSharedAccounts requestIsAttributionSpecSystemDefaultField () {
-      return this.requestIsAttributionSpecSystemDefaultField(true);
-    }
-    public APIRequestGetSharedAccounts requestIsAttributionSpecSystemDefaultField (boolean value) {
-      this.requestField("is_attribution_spec_system_default", value);
-      return this;
-    }
     public APIRequestGetSharedAccounts requestIsNotificationsEnabledField () {
       return this.requestIsNotificationsEnabledField(true);
     }
@@ -1014,20 +959,6 @@ public class AdsPixel extends APINode {
       this.requestField("rf_spec", value);
       return this;
     }
-    public APIRequestGetSharedAccounts requestSalesforceInvoiceGroupIdField () {
-      return this.requestSalesforceInvoiceGroupIdField(true);
-    }
-    public APIRequestGetSharedAccounts requestSalesforceInvoiceGroupIdField (boolean value) {
-      this.requestField("salesforce_invoice_group_id", value);
-      return this;
-    }
-    public APIRequestGetSharedAccounts requestShowCheckoutExperienceField () {
-      return this.requestShowCheckoutExperienceField(true);
-    }
-    public APIRequestGetSharedAccounts requestShowCheckoutExperienceField (boolean value) {
-      this.requestField("show_checkout_experience", value);
-      return this;
-    }
     public APIRequestGetSharedAccounts requestSpendCapField () {
       return this.requestSpendCapField(true);
     }
@@ -1110,12 +1041,10 @@ public class AdsPixel extends APINode {
       "link",
       "name",
       "primary_page",
-      "profile_picture_uri",
       "timezone_id",
       "two_factor_type",
       "updated_by",
       "updated_time",
-      "vertical",
     };
 
     @Override
@@ -1229,13 +1158,6 @@ public class AdsPixel extends APINode {
       this.requestField("primary_page", value);
       return this;
     }
-    public APIRequestGetSharedAgencies requestProfilePictureUriField () {
-      return this.requestProfilePictureUriField(true);
-    }
-    public APIRequestGetSharedAgencies requestProfilePictureUriField (boolean value) {
-      this.requestField("profile_picture_uri", value);
-      return this;
-    }
     public APIRequestGetSharedAgencies requestTimezoneIdField () {
       return this.requestTimezoneIdField(true);
     }
@@ -1262,13 +1184,6 @@ public class AdsPixel extends APINode {
     }
     public APIRequestGetSharedAgencies requestUpdatedTimeField (boolean value) {
       this.requestField("updated_time", value);
-      return this;
-    }
-    public APIRequestGetSharedAgencies requestVerticalField () {
-      return this.requestVerticalField(true);
-    }
-    public APIRequestGetSharedAgencies requestVerticalField (boolean value) {
-      this.requestField("vertical", value);
       return this;
     }
   }
@@ -1422,9 +1337,7 @@ public class AdsPixel extends APINode {
     public static final String[] FIELDS = {
       "code",
       "creation_time",
-      "creator",
       "id",
-      "is_created_by_business",
       "last_fired_time",
       "name",
       "owner_ad_account",
@@ -1514,25 +1427,11 @@ public class AdsPixel extends APINode {
       this.requestField("creation_time", value);
       return this;
     }
-    public APIRequestGet requestCreatorField () {
-      return this.requestCreatorField(true);
-    }
-    public APIRequestGet requestCreatorField (boolean value) {
-      this.requestField("creator", value);
-      return this;
-    }
     public APIRequestGet requestIdField () {
       return this.requestIdField(true);
     }
     public APIRequestGet requestIdField (boolean value) {
       this.requestField("id", value);
-      return this;
-    }
-    public APIRequestGet requestIsCreatedByBusinessField () {
-      return this.requestIsCreatedByBusinessField(true);
-    }
-    public APIRequestGet requestIsCreatedByBusinessField (boolean value) {
-      this.requestField("is_created_by_business", value);
       return this;
     }
     public APIRequestGet requestLastFiredTimeField () {
@@ -1672,9 +1571,7 @@ public class AdsPixel extends APINode {
   public AdsPixel copyFrom(AdsPixel instance) {
     this.mCode = instance.mCode;
     this.mCreationTime = instance.mCreationTime;
-    this.mCreator = instance.mCreator;
     this.mId = instance.mId;
-    this.mIsCreatedByBusiness = instance.mIsCreatedByBusiness;
     this.mLastFiredTime = instance.mLastFiredTime;
     this.mName = instance.mName;
     this.mOwnerAdAccount = instance.mOwnerAdAccount;

@@ -59,8 +59,6 @@ public class ProductFeedSchedule extends APINode {
   private Long mHour = null;
   @SerializedName("interval")
   private EnumInterval mInterval = null;
-  @SerializedName("interval_count")
-  private Long mIntervalCount = null;
   @SerializedName("minute")
   private Long mMinute = null;
   @SerializedName("timezone")
@@ -246,15 +244,6 @@ public class ProductFeedSchedule extends APINode {
     return this;
   }
 
-  public Long getFieldIntervalCount() {
-    return mIntervalCount;
-  }
-
-  public ProductFeedSchedule setFieldIntervalCount(Long value) {
-    this.mIntervalCount = value;
-    return this;
-  }
-
   public Long getFieldMinute() {
     return mMinute;
   }
@@ -364,7 +353,6 @@ public class ProductFeedSchedule extends APINode {
     this.mDayOfWeek = instance.mDayOfWeek;
     this.mHour = instance.mHour;
     this.mInterval = instance.mInterval;
-    this.mIntervalCount = instance.mIntervalCount;
     this.mMinute = instance.mMinute;
     this.mTimezone = instance.mTimezone;
     this.mUrl = instance.mUrl;

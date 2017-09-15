@@ -53,14 +53,10 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
 public class ReachFrequencySpec extends APINode {
   @SerializedName("countries")
   private List<String> mCountries = null;
-  @SerializedName("default_creation_data")
-  private Object mDefaultCreationData = null;
   @SerializedName("max_campaign_duration")
   private Object mMaxCampaignDuration = null;
   @SerializedName("max_days_to_finish")
   private Object mMaxDaysToFinish = null;
-  @SerializedName("max_pause_without_prediction_rerun")
-  private Object mMaxPauseWithoutPredictionRerun = null;
   @SerializedName("min_campaign_duration")
   private Object mMinCampaignDuration = null;
   @SerializedName("min_reach_limits")
@@ -215,15 +211,6 @@ public class ReachFrequencySpec extends APINode {
     return this;
   }
 
-  public Object getFieldDefaultCreationData() {
-    return mDefaultCreationData;
-  }
-
-  public ReachFrequencySpec setFieldDefaultCreationData(Object value) {
-    this.mDefaultCreationData = value;
-    return this;
-  }
-
   public Object getFieldMaxCampaignDuration() {
     return mMaxCampaignDuration;
   }
@@ -239,15 +226,6 @@ public class ReachFrequencySpec extends APINode {
 
   public ReachFrequencySpec setFieldMaxDaysToFinish(Object value) {
     this.mMaxDaysToFinish = value;
-    return this;
-  }
-
-  public Object getFieldMaxPauseWithoutPredictionRerun() {
-    return mMaxPauseWithoutPredictionRerun;
-  }
-
-  public ReachFrequencySpec setFieldMaxPauseWithoutPredictionRerun(Object value) {
-    this.mMaxPauseWithoutPredictionRerun = value;
     return this;
   }
 
@@ -287,10 +265,8 @@ public class ReachFrequencySpec extends APINode {
 
   public ReachFrequencySpec copyFrom(ReachFrequencySpec instance) {
     this.mCountries = instance.mCountries;
-    this.mDefaultCreationData = instance.mDefaultCreationData;
     this.mMaxCampaignDuration = instance.mMaxCampaignDuration;
     this.mMaxDaysToFinish = instance.mMaxDaysToFinish;
-    this.mMaxPauseWithoutPredictionRerun = instance.mMaxPauseWithoutPredictionRerun;
     this.mMinCampaignDuration = instance.mMinCampaignDuration;
     this.mMinReachLimits = instance.mMinReachLimits;
     this.context = instance.context;

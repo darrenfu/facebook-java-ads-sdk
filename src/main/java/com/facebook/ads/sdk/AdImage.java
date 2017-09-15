@@ -63,8 +63,6 @@ public class AdImage extends APINode {
   private Long mHeight = null;
   @SerializedName("id")
   private String mId = null;
-  @SerializedName("is_associated_creatives_in_adgroups")
-  private Boolean mIsAssociatedCreativesInAdgroups = null;
   @SerializedName("name")
   private String mName = null;
   @SerializedName("original_height")
@@ -118,7 +116,7 @@ public class AdImage extends APINode {
   public static APINodeList<AdImage> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<AdImage>)(
       new APIRequest<AdImage>(context, "", "/", "GET", AdImage.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -292,10 +290,6 @@ public class AdImage extends APINode {
     return mId;
   }
 
-  public Boolean getFieldIsAssociatedCreativesInAdgroups() {
-    return mIsAssociatedCreativesInAdgroups;
-  }
-
   public String getFieldName() {
     return mName;
   }
@@ -351,7 +345,6 @@ public class AdImage extends APINode {
       "hash",
       "height",
       "id",
-      "is_associated_creatives_in_adgroups",
       "name",
       "original_height",
       "original_width",
@@ -474,13 +467,6 @@ public class AdImage extends APINode {
       this.requestField("id", value);
       return this;
     }
-    public APIRequestGet requestIsAssociatedCreativesInAdgroupsField () {
-      return this.requestIsAssociatedCreativesInAdgroupsField(true);
-    }
-    public APIRequestGet requestIsAssociatedCreativesInAdgroupsField (boolean value) {
-      this.requestField("is_associated_creatives_in_adgroups", value);
-      return this;
-    }
     public APIRequestGet requestNameField () {
       return this.requestNameField(true);
     }
@@ -586,7 +572,6 @@ public class AdImage extends APINode {
     this.mHash = instance.mHash;
     this.mHeight = instance.mHeight;
     this.mId = instance.mId;
-    this.mIsAssociatedCreativesInAdgroups = instance.mIsAssociatedCreativesInAdgroups;
     this.mName = instance.mName;
     this.mOriginalHeight = instance.mOriginalHeight;
     this.mOriginalWidth = instance.mOriginalWidth;

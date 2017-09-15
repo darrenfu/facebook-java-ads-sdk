@@ -94,7 +94,7 @@ public class EventSourceGroup extends APINode {
   public static APINodeList<EventSourceGroup> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<EventSourceGroup>)(
       new APIRequest<EventSourceGroup>(context, "", "/", "GET", EventSourceGroup.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );

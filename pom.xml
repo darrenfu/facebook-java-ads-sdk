@@ -4,10 +4,53 @@
   <groupId>com.facebook.ads.sdk</groupId>
   <artifactId>facebook-java-ads-sdk</artifactId>
   <packaging>jar</packaging>
-  <version>2.10.0</version>
+  <version>0.4.0</version>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>Facebook Ads SDK for Java</description>
   <url>https://developers.facebook.com/docs/marketing-api/sdks</url>
+      	<repositories>
+		<repository>
+			<id>raptor.external</id>
+			<url>http://ebaycentral/content/repositories/external/</url>
+		</repository>
+		<repository>
+			<id>raptor.thirdparty</id>
+			<url>http://ebaycentral/content/repositories/thirdparty/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>raptor.releases</id>
+			<url>http://ebaycentral/content/repositories/releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>raptor.snapshots</id>
+			<url>http://ebaycentral/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>raptor.central</id>
+			<url>http://ebaycentral/content/repositories/central/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
   <licenses>
     <license>
       <name>Facebook Platform License</name>
@@ -66,20 +109,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.5</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -88,6 +117,11 @@
       <artifactId>gson</artifactId>
       <version>2.5</version>
     </dependency>
+    <dependency>
+    	<groupId>com.google.guava</groupId>
+    	<artifactId>guava</artifactId>
+    	<version>19.0</version>
+    </dependency>    
   </dependencies>
   <distributionManagement>
     <snapshotRepository>

@@ -89,10 +89,6 @@ public class Ad extends APINode {
   private String mName = null;
   @SerializedName("recommendations")
   private List<AdRecommendation> mRecommendations = null;
-  @SerializedName("source_ad")
-  private Ad mSourceAd = null;
-  @SerializedName("source_ad_id")
-  private String mSourceAdId = null;
   @SerializedName("status")
   private EnumStatus mStatus = null;
   @SerializedName("tracking_specs")
@@ -134,7 +130,7 @@ public class Ad extends APINode {
   public static APINodeList<Ad> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<Ad>)(
       new APIRequest<Ad>(context, "", "/", "GET", Ad.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -311,6 +307,10 @@ public class Ad extends APINode {
     return new APIRequestGetPreviews(this.getPrefixedId().toString(), context);
   }
 
+  public APIRequestGetReachEstimate getReachEstimate() {
+    return new APIRequestGetReachEstimate(this.getPrefixedId().toString(), context);
+  }
+
   public APIRequestGetTargetingSentenceLines getTargetingSentenceLines() {
     return new APIRequestGetTargetingSentenceLines(this.getPrefixedId().toString(), context);
   }
@@ -341,9 +341,6 @@ public class Ad extends APINode {
   }
 
   public AdSet getFieldAdset() {
-    if (mAdset != null) {
-      mAdset.context = getContext();
-    }
     return mAdset;
   }
 
@@ -364,9 +361,6 @@ public class Ad extends APINode {
   }
 
   public Campaign getFieldCampaign() {
-    if (mCampaign != null) {
-      mCampaign.context = getContext();
-    }
     return mCampaign;
   }
 
@@ -413,17 +407,6 @@ public class Ad extends APINode {
     return mRecommendations;
   }
 
-  public Ad getFieldSourceAd() {
-    if (mSourceAd != null) {
-      mSourceAd.context = getContext();
-    }
-    return mSourceAd;
-  }
-
-  public String getFieldSourceAdId() {
-    return mSourceAdId;
-  }
-
   public EnumStatus getFieldStatus() {
     return mStatus;
   }
@@ -449,8 +432,6 @@ public class Ad extends APINode {
     };
 
     public static final String[] FIELDS = {
-      "account_id",
-      "actor_id",
       "adlabels",
       "applink_treatment",
       "body",
@@ -474,14 +455,12 @@ public class Ad extends APINode {
       "object_url",
       "platform_customizations",
       "product_set_id",
-      "status",
+      "run_status",
       "template_url",
-      "template_url_spec",
       "thumbnail_url",
       "title",
       "url_tags",
       "use_page_actor_override",
-      "video_id",
     };
 
     @Override
@@ -553,20 +532,6 @@ public class Ad extends APINode {
       return this;
     }
 
-    public APIRequestGetAdCreatives requestAccountIdField () {
-      return this.requestAccountIdField(true);
-    }
-    public APIRequestGetAdCreatives requestAccountIdField (boolean value) {
-      this.requestField("account_id", value);
-      return this;
-    }
-    public APIRequestGetAdCreatives requestActorIdField () {
-      return this.requestActorIdField(true);
-    }
-    public APIRequestGetAdCreatives requestActorIdField (boolean value) {
-      this.requestField("actor_id", value);
-      return this;
-    }
     public APIRequestGetAdCreatives requestAdlabelsField () {
       return this.requestAdlabelsField(true);
     }
@@ -728,11 +693,11 @@ public class Ad extends APINode {
       this.requestField("product_set_id", value);
       return this;
     }
-    public APIRequestGetAdCreatives requestStatusField () {
-      return this.requestStatusField(true);
+    public APIRequestGetAdCreatives requestRunStatusField () {
+      return this.requestRunStatusField(true);
     }
-    public APIRequestGetAdCreatives requestStatusField (boolean value) {
-      this.requestField("status", value);
+    public APIRequestGetAdCreatives requestRunStatusField (boolean value) {
+      this.requestField("run_status", value);
       return this;
     }
     public APIRequestGetAdCreatives requestTemplateUrlField () {
@@ -740,13 +705,6 @@ public class Ad extends APINode {
     }
     public APIRequestGetAdCreatives requestTemplateUrlField (boolean value) {
       this.requestField("template_url", value);
-      return this;
-    }
-    public APIRequestGetAdCreatives requestTemplateUrlSpecField () {
-      return this.requestTemplateUrlSpecField(true);
-    }
-    public APIRequestGetAdCreatives requestTemplateUrlSpecField (boolean value) {
-      this.requestField("template_url_spec", value);
       return this;
     }
     public APIRequestGetAdCreatives requestThumbnailUrlField () {
@@ -775,13 +733,6 @@ public class Ad extends APINode {
     }
     public APIRequestGetAdCreatives requestUsePageActorOverrideField (boolean value) {
       this.requestField("use_page_actor_override", value);
-      return this;
-    }
-    public APIRequestGetAdCreatives requestVideoIdField () {
-      return this.requestVideoIdField(true);
-    }
-    public APIRequestGetAdCreatives requestVideoIdField (boolean value) {
-      this.requestField("video_id", value);
       return this;
     }
   }
@@ -1021,7 +972,6 @@ public class Ad extends APINode {
       "time_increment",
       "time_range",
       "time_ranges",
-      "use_account_attribution_setting",
     };
 
     public static final String[] FIELDS = {
@@ -1219,15 +1169,6 @@ public class Ad extends APINode {
       return this;
     }
 
-    public APIRequestGetInsights setUseAccountAttributionSetting (Boolean useAccountAttributionSetting) {
-      this.setParam("use_account_attribution_setting", useAccountAttributionSetting);
-      return this;
-    }
-    public APIRequestGetInsights setUseAccountAttributionSetting (String useAccountAttributionSetting) {
-      this.setParam("use_account_attribution_setting", useAccountAttributionSetting);
-      return this;
-    }
-
     public APIRequestGetInsights requestAllFields () {
       return this.requestAllFields(true);
     }
@@ -1293,7 +1234,6 @@ public class Ad extends APINode {
       "time_increment",
       "time_range",
       "time_ranges",
-      "use_account_attribution_setting",
     };
 
     public static final String[] FIELDS = {
@@ -1488,15 +1428,6 @@ public class Ad extends APINode {
     }
     public APIRequestGetInsightsAsync setTimeRanges (String timeRanges) {
       this.setParam("time_ranges", timeRanges);
-      return this;
-    }
-
-    public APIRequestGetInsightsAsync setUseAccountAttributionSetting (Boolean useAccountAttributionSetting) {
-      this.setParam("use_account_attribution_setting", useAccountAttributionSetting);
-      return this;
-    }
-    public APIRequestGetInsightsAsync setUseAccountAttributionSetting (String useAccountAttributionSetting) {
-      this.setParam("use_account_attribution_setting", useAccountAttributionSetting);
       return this;
     }
 
@@ -1812,7 +1743,6 @@ public class Ad extends APINode {
       "id",
       "is_organic",
       "post",
-      "retailer_item_id",
     };
 
     @Override
@@ -1975,13 +1905,6 @@ public class Ad extends APINode {
       this.requestField("post", value);
       return this;
     }
-    public APIRequestGetLeads requestRetailerItemIdField () {
-      return this.requestRetailerItemIdField(true);
-    }
-    public APIRequestGetLeads requestRetailerItemIdField (boolean value) {
-      this.requestField("retailer_item_id", value);
-      return this;
-    }
   }
 
   public static class APIRequestGetPreviews extends APIRequest<AdPreview> {
@@ -1993,13 +1916,13 @@ public class Ad extends APINode {
     }
     public static final String[] PARAMS = {
       "ad_format",
-      "end_date",
+      "dynamic_creative_spec",
       "height",
+      "interactive",
       "locale",
       "place_page_id",
       "post",
       "product_item_ids",
-      "start_date",
       "width",
     };
 
@@ -2049,8 +1972,12 @@ public class Ad extends APINode {
       return this;
     }
 
-    public APIRequestGetPreviews setEndDate (String endDate) {
-      this.setParam("end_date", endDate);
+    public APIRequestGetPreviews setDynamicCreativeSpec (Object dynamicCreativeSpec) {
+      this.setParam("dynamic_creative_spec", dynamicCreativeSpec);
+      return this;
+    }
+    public APIRequestGetPreviews setDynamicCreativeSpec (String dynamicCreativeSpec) {
+      this.setParam("dynamic_creative_spec", dynamicCreativeSpec);
       return this;
     }
 
@@ -2060,6 +1987,15 @@ public class Ad extends APINode {
     }
     public APIRequestGetPreviews setHeight (String height) {
       this.setParam("height", height);
+      return this;
+    }
+
+    public APIRequestGetPreviews setInteractive (Boolean interactive) {
+      this.setParam("interactive", interactive);
+      return this;
+    }
+    public APIRequestGetPreviews setInteractive (String interactive) {
+      this.setParam("interactive", interactive);
       return this;
     }
 
@@ -2092,11 +2028,6 @@ public class Ad extends APINode {
     }
     public APIRequestGetPreviews setProductItemIds (String productItemIds) {
       this.setParam("product_item_ids", productItemIds);
-      return this;
-    }
-
-    public APIRequestGetPreviews setStartDate (String startDate) {
-      this.setParam("start_date", startDate);
       return this;
     }
 
@@ -2150,6 +2081,148 @@ public class Ad extends APINode {
     }
     public APIRequestGetPreviews requestBodyField (boolean value) {
       this.requestField("body", value);
+      return this;
+    }
+  }
+
+  public static class APIRequestGetReachEstimate extends APIRequest<ReachEstimate> {
+
+    APINodeList<ReachEstimate> lastResponse = null;
+    @Override
+    public APINodeList<ReachEstimate> getLastResponse() {
+      return lastResponse;
+    }
+    public static final String[] PARAMS = {
+      "currency",
+      "daily_budget",
+      "optimize_for",
+    };
+
+    public static final String[] FIELDS = {
+      "bid_estimations",
+      "estimate_ready",
+      "unsupported",
+      "users",
+    };
+
+    @Override
+    public APINodeList<ReachEstimate> parseResponse(String response) throws APIException {
+      return ReachEstimate.parseResponse(response, getContext(), this);
+    }
+
+    @Override
+    public APINodeList<ReachEstimate> execute() throws APIException {
+      return execute(new HashMap<String, Object>());
+    }
+
+    @Override
+    public APINodeList<ReachEstimate> execute(Map<String, Object> extraParams) throws APIException {
+      lastResponse = parseResponse(executeInternal(extraParams));
+      return lastResponse;
+    }
+
+    public APIRequestGetReachEstimate(String nodeId, APIContext context) {
+      super(context, nodeId, "/reachestimate", "GET", Arrays.asList(PARAMS));
+    }
+
+    @Override
+    public APIRequestGetReachEstimate setParam(String param, Object value) {
+      setParamInternal(param, value);
+      return this;
+    }
+
+    @Override
+    public APIRequestGetReachEstimate setParams(Map<String, Object> params) {
+      setParamsInternal(params);
+      return this;
+    }
+
+
+    public APIRequestGetReachEstimate setCurrency (String currency) {
+      this.setParam("currency", currency);
+      return this;
+    }
+
+    public APIRequestGetReachEstimate setDailyBudget (Double dailyBudget) {
+      this.setParam("daily_budget", dailyBudget);
+      return this;
+    }
+    public APIRequestGetReachEstimate setDailyBudget (String dailyBudget) {
+      this.setParam("daily_budget", dailyBudget);
+      return this;
+    }
+
+    public APIRequestGetReachEstimate setOptimizeFor (ReachEstimate.EnumOptimizeFor optimizeFor) {
+      this.setParam("optimize_for", optimizeFor);
+      return this;
+    }
+    public APIRequestGetReachEstimate setOptimizeFor (String optimizeFor) {
+      this.setParam("optimize_for", optimizeFor);
+      return this;
+    }
+
+    public APIRequestGetReachEstimate requestAllFields () {
+      return this.requestAllFields(true);
+    }
+
+    public APIRequestGetReachEstimate requestAllFields (boolean value) {
+      for (String field : FIELDS) {
+        this.requestField(field, value);
+      }
+      return this;
+    }
+
+    @Override
+    public APIRequestGetReachEstimate requestFields (List<String> fields) {
+      return this.requestFields(fields, true);
+    }
+
+    @Override
+    public APIRequestGetReachEstimate requestFields (List<String> fields, boolean value) {
+      for (String field : fields) {
+        this.requestField(field, value);
+      }
+      return this;
+    }
+
+    @Override
+    public APIRequestGetReachEstimate requestField (String field) {
+      this.requestField(field, true);
+      return this;
+    }
+
+    @Override
+    public APIRequestGetReachEstimate requestField (String field, boolean value) {
+      this.requestFieldInternal(field, value);
+      return this;
+    }
+
+    public APIRequestGetReachEstimate requestBidEstimationsField () {
+      return this.requestBidEstimationsField(true);
+    }
+    public APIRequestGetReachEstimate requestBidEstimationsField (boolean value) {
+      this.requestField("bid_estimations", value);
+      return this;
+    }
+    public APIRequestGetReachEstimate requestEstimateReadyField () {
+      return this.requestEstimateReadyField(true);
+    }
+    public APIRequestGetReachEstimate requestEstimateReadyField (boolean value) {
+      this.requestField("estimate_ready", value);
+      return this;
+    }
+    public APIRequestGetReachEstimate requestUnsupportedField () {
+      return this.requestUnsupportedField(true);
+    }
+    public APIRequestGetReachEstimate requestUnsupportedField (boolean value) {
+      this.requestField("unsupported", value);
+      return this;
+    }
+    public APIRequestGetReachEstimate requestUsersField () {
+      return this.requestUsersField(true);
+    }
+    public APIRequestGetReachEstimate requestUsersField (boolean value) {
+      this.requestField("users", value);
       return this;
     }
   }
@@ -2376,8 +2449,6 @@ public class Ad extends APINode {
       "last_updated_by_app_id",
       "name",
       "recommendations",
-      "source_ad",
-      "source_ad_id",
       "status",
       "tracking_specs",
       "updated_time",
@@ -2583,20 +2654,6 @@ public class Ad extends APINode {
     }
     public APIRequestGet requestRecommendationsField (boolean value) {
       this.requestField("recommendations", value);
-      return this;
-    }
-    public APIRequestGet requestSourceAdField () {
-      return this.requestSourceAdField(true);
-    }
-    public APIRequestGet requestSourceAdField (boolean value) {
-      this.requestField("source_ad", value);
-      return this;
-    }
-    public APIRequestGet requestSourceAdIdField () {
-      return this.requestSourceAdIdField(true);
-    }
-    public APIRequestGet requestSourceAdIdField (boolean value) {
-      this.requestField("source_ad_id", value);
       return this;
     }
     public APIRequestGet requestStatusField () {
@@ -2913,40 +2970,32 @@ public class Ad extends APINode {
       VALUE_TODAY("today"),
       @SerializedName("yesterday")
       VALUE_YESTERDAY("yesterday"),
+      @SerializedName("last_3_days")
+      VALUE_LAST_3_DAYS("last_3_days"),
+      @SerializedName("this_week")
+      VALUE_THIS_WEEK("this_week"),
+      @SerializedName("last_week")
+      VALUE_LAST_WEEK("last_week"),
+      @SerializedName("last_7_days")
+      VALUE_LAST_7_DAYS("last_7_days"),
+      @SerializedName("last_14_days")
+      VALUE_LAST_14_DAYS("last_14_days"),
+      @SerializedName("last_28_days")
+      VALUE_LAST_28_DAYS("last_28_days"),
+      @SerializedName("last_30_days")
+      VALUE_LAST_30_DAYS("last_30_days"),
+      @SerializedName("last_90_days")
+      VALUE_LAST_90_DAYS("last_90_days"),
       @SerializedName("this_month")
       VALUE_THIS_MONTH("this_month"),
       @SerializedName("last_month")
       VALUE_LAST_MONTH("last_month"),
       @SerializedName("this_quarter")
       VALUE_THIS_QUARTER("this_quarter"),
+      @SerializedName("last_3_months")
+      VALUE_LAST_3_MONTHS("last_3_months"),
       @SerializedName("lifetime")
       VALUE_LIFETIME("lifetime"),
-      @SerializedName("last_3d")
-      VALUE_LAST_3D("last_3d"),
-      @SerializedName("last_7d")
-      VALUE_LAST_7D("last_7d"),
-      @SerializedName("last_14d")
-      VALUE_LAST_14D("last_14d"),
-      @SerializedName("last_28d")
-      VALUE_LAST_28D("last_28d"),
-      @SerializedName("last_30d")
-      VALUE_LAST_30D("last_30d"),
-      @SerializedName("last_90d")
-      VALUE_LAST_90D("last_90d"),
-      @SerializedName("last_week_mon_sun")
-      VALUE_LAST_WEEK_MON_SUN("last_week_mon_sun"),
-      @SerializedName("last_week_sun_sat")
-      VALUE_LAST_WEEK_SUN_SAT("last_week_sun_sat"),
-      @SerializedName("last_quarter")
-      VALUE_LAST_QUARTER("last_quarter"),
-      @SerializedName("last_year")
-      VALUE_LAST_YEAR("last_year"),
-      @SerializedName("this_week_mon_today")
-      VALUE_THIS_WEEK_MON_TODAY("this_week_mon_today"),
-      @SerializedName("this_week_sun_today")
-      VALUE_THIS_WEEK_SUN_TODAY("this_week_sun_today"),
-      @SerializedName("this_year")
-      VALUE_THIS_YEAR("this_year"),
       NULL(null);
 
       private String value;
@@ -3035,8 +3084,6 @@ public class Ad extends APINode {
     this.mLastUpdatedByAppId = instance.mLastUpdatedByAppId;
     this.mName = instance.mName;
     this.mRecommendations = instance.mRecommendations;
-    this.mSourceAd = instance.mSourceAd;
-    this.mSourceAdId = instance.mSourceAdId;
     this.mStatus = instance.mStatus;
     this.mTrackingSpecs = instance.mTrackingSpecs;
     this.mUpdatedTime = instance.mUpdatedTime;

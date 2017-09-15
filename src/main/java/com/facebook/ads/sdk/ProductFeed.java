@@ -62,7 +62,7 @@ public class ProductFeed extends APINode {
   @SerializedName("delimiter")
   private EnumDelimiter mDelimiter = null;
   @SerializedName("encoding")
-  private String mEncoding = null;
+  private EnumEncoding mEncoding = null;
   @SerializedName("file_name")
   private String mFileName = null;
   @SerializedName("id")
@@ -73,8 +73,6 @@ public class ProductFeed extends APINode {
   private String mName = null;
   @SerializedName("product_count")
   private Long mProductCount = null;
-  @SerializedName("qualified_product_count")
-  private Long mQualifiedProductCount = null;
   @SerializedName("quoted_fields_mode")
   private EnumQuotedFieldsMode mQuotedFieldsMode = null;
   @SerializedName("schedule")
@@ -114,7 +112,7 @@ public class ProductFeed extends APINode {
   public static APINodeList<ProductFeed> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<ProductFeed>)(
       new APIRequest<ProductFeed>(context, "", "/", "GET", ProductFeed.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -304,7 +302,7 @@ public class ProductFeed extends APINode {
     return mDelimiter;
   }
 
-  public String getFieldEncoding() {
+  public EnumEncoding getFieldEncoding() {
     return mEncoding;
   }
 
@@ -329,10 +327,6 @@ public class ProductFeed extends APINode {
 
   public Long getFieldProductCount() {
     return mProductCount;
-  }
-
-  public Long getFieldQualifiedProductCount() {
-    return mQualifiedProductCount;
   }
 
   public EnumQuotedFieldsMode getFieldQuotedFieldsMode() {
@@ -386,9 +380,7 @@ public class ProductFeed extends APINode {
       "ordering_index",
       "pattern",
       "price",
-      "product_catalog",
       "product_feed",
-      "product_group",
       "product_type",
       "retailer_id",
       "retailer_product_group_id",
@@ -689,25 +681,11 @@ public class ProductFeed extends APINode {
       this.requestField("price", value);
       return this;
     }
-    public APIRequestGetProducts requestProductCatalogField () {
-      return this.requestProductCatalogField(true);
-    }
-    public APIRequestGetProducts requestProductCatalogField (boolean value) {
-      this.requestField("product_catalog", value);
-      return this;
-    }
     public APIRequestGetProducts requestProductFeedField () {
       return this.requestProductFeedField(true);
     }
     public APIRequestGetProducts requestProductFeedField (boolean value) {
       this.requestField("product_feed", value);
-      return this;
-    }
-    public APIRequestGetProducts requestProductGroupField () {
-      return this.requestProductGroupField(true);
-    }
-    public APIRequestGetProducts requestProductGroupField (boolean value) {
-      this.requestField("product_group", value);
       return this;
     }
     public APIRequestGetProducts requestProductTypeField () {
@@ -1169,7 +1147,6 @@ public class ProductFeed extends APINode {
       "latest_upload",
       "name",
       "product_count",
-      "qualified_product_count",
       "quoted_fields_mode",
       "schedule",
     };
@@ -1320,13 +1297,6 @@ public class ProductFeed extends APINode {
       this.requestField("product_count", value);
       return this;
     }
-    public APIRequestGet requestQualifiedProductCountField () {
-      return this.requestQualifiedProductCountField(true);
-    }
-    public APIRequestGet requestQualifiedProductCountField (boolean value) {
-      this.requestField("qualified_product_count", value);
-      return this;
-    }
     public APIRequestGet requestQuotedFieldsModeField () {
       return this.requestQuotedFieldsModeField(true);
     }
@@ -1356,7 +1326,7 @@ public class ProductFeed extends APINode {
       "delimiter",
       "encoding",
       "name",
-      "quoted_fields_mode",
+      "quoted_fields",
       "schedule",
     };
 
@@ -1433,12 +1403,12 @@ public class ProductFeed extends APINode {
       return this;
     }
 
-    public APIRequestUpdate setQuotedFieldsMode (ProductFeed.EnumQuotedFieldsMode quotedFieldsMode) {
-      this.setParam("quoted_fields_mode", quotedFieldsMode);
+    public APIRequestUpdate setQuotedFields (Boolean quotedFields) {
+      this.setParam("quoted_fields", quotedFields);
       return this;
     }
-    public APIRequestUpdate setQuotedFieldsMode (String quotedFieldsMode) {
-      this.setParam("quoted_fields_mode", quotedFieldsMode);
+    public APIRequestUpdate setQuotedFields (String quotedFields) {
+      this.setParam("quoted_fields", quotedFields);
       return this;
     }
 
@@ -1512,27 +1482,6 @@ public class ProductFeed extends APINode {
       }
   }
 
-  public static enum EnumQuotedFieldsMode {
-      @SerializedName("AUTODETECT")
-      VALUE_AUTODETECT("AUTODETECT"),
-      @SerializedName("ON")
-      VALUE_ON("ON"),
-      @SerializedName("OFF")
-      VALUE_OFF("OFF"),
-      NULL(null);
-
-      private String value;
-
-      private EnumQuotedFieldsMode(String value) {
-        this.value = value;
-      }
-
-      @Override
-      public String toString() {
-        return value;
-      }
-  }
-
   public static enum EnumEncoding {
       @SerializedName("AUTODETECT")
       VALUE_AUTODETECT("AUTODETECT"),
@@ -1553,6 +1502,27 @@ public class ProductFeed extends APINode {
       private String value;
 
       private EnumEncoding(String value) {
+        this.value = value;
+      }
+
+      @Override
+      public String toString() {
+        return value;
+      }
+  }
+
+  public static enum EnumQuotedFieldsMode {
+      @SerializedName("AUTODETECT")
+      VALUE_AUTODETECT("AUTODETECT"),
+      @SerializedName("ON")
+      VALUE_ON("ON"),
+      @SerializedName("OFF")
+      VALUE_OFF("OFF"),
+      NULL(null);
+
+      private String value;
+
+      private EnumQuotedFieldsMode(String value) {
         this.value = value;
       }
 
@@ -1588,7 +1558,6 @@ public class ProductFeed extends APINode {
     this.mLatestUpload = instance.mLatestUpload;
     this.mName = instance.mName;
     this.mProductCount = instance.mProductCount;
-    this.mQualifiedProductCount = instance.mQualifiedProductCount;
     this.mQuotedFieldsMode = instance.mQuotedFieldsMode;
     this.mSchedule = instance.mSchedule;
     this.context = instance.context;

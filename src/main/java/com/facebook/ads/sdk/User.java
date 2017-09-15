@@ -59,8 +59,6 @@ public class User extends APINode {
   private Object mAgeRange = null;
   @SerializedName("birthday")
   private String mBirthday = null;
-  @SerializedName("can_review_measurement_request")
-  private Boolean mCanReviewMeasurementRequest = null;
   @SerializedName("context")
   private Object mContext = null;
   @SerializedName("cover")
@@ -119,6 +117,8 @@ public class User extends APINode {
   private String mName = null;
   @SerializedName("name_format")
   private String mNameFormat = null;
+  @SerializedName("page_scoped_id")
+  private String mPageScopedId = null;
   @SerializedName("payment_pricepoints")
   private Object mPaymentPricepoints = null;
   @SerializedName("political")
@@ -135,8 +135,6 @@ public class User extends APINode {
   private Object mSecuritySettings = null;
   @SerializedName("shared_login_upgrade_required_by")
   private String mSharedLoginUpgradeRequiredBy = null;
-  @SerializedName("short_name")
-  private String mShortName = null;
   @SerializedName("significant_other")
   private User mSignificantOther = null;
   @SerializedName("sports")
@@ -196,7 +194,7 @@ public class User extends APINode {
   public static APINodeList<User> fetchByIds(List<String> ids, List<String> fields, APIContext context) throws APIException {
     return (APINodeList<User>)(
       new APIRequest<User>(context, "", "/", "GET", User.getParser())
-        .setParam("ids", APIRequest.joinStringList(ids))
+        .setParam("ids", paramJoiner.join(ids))
         .requestFields(fields)
         .execute()
     );
@@ -386,10 +384,6 @@ public class User extends APINode {
     return mBirthday;
   }
 
-  public Boolean getFieldCanReviewMeasurementRequest() {
-    return mCanReviewMeasurementRequest;
-  }
-
   public Object getFieldContext() {
     return mContext;
   }
@@ -506,6 +500,10 @@ public class User extends APINode {
     return mNameFormat;
   }
 
+  public String getFieldPageScopedId() {
+    return mPageScopedId;
+  }
+
   public Object getFieldPaymentPricepoints() {
     return mPaymentPricepoints;
   }
@@ -536,10 +534,6 @@ public class User extends APINode {
 
   public String getFieldSharedLoginUpgradeRequiredBy() {
     return mSharedLoginUpgradeRequiredBy;
-  }
-
-  public String getFieldShortName() {
-    return mShortName;
   }
 
   public User getFieldSignificantOther() {
@@ -731,7 +725,6 @@ public class User extends APINode {
       "age",
       "agency_client_declaration",
       "amount_spent",
-      "attribution_spec",
       "balance",
       "business",
       "business_city",
@@ -753,7 +746,6 @@ public class User extends APINode {
       "has_migrated_permissions",
       "id",
       "io_number",
-      "is_attribution_spec_system_default",
       "is_notifications_enabled",
       "is_personal",
       "is_prepay_account",
@@ -767,8 +759,6 @@ public class User extends APINode {
       "owner",
       "partner",
       "rf_spec",
-      "salesforce_invoice_group_id",
-      "show_checkout_experience",
       "spend_cap",
       "tax_id",
       "tax_id_status",
@@ -882,13 +872,6 @@ public class User extends APINode {
     }
     public APIRequestGetAdAccounts requestAmountSpentField (boolean value) {
       this.requestField("amount_spent", value);
-      return this;
-    }
-    public APIRequestGetAdAccounts requestAttributionSpecField () {
-      return this.requestAttributionSpecField(true);
-    }
-    public APIRequestGetAdAccounts requestAttributionSpecField (boolean value) {
-      this.requestField("attribution_spec", value);
       return this;
     }
     public APIRequestGetAdAccounts requestBalanceField () {
@@ -1038,13 +1021,6 @@ public class User extends APINode {
       this.requestField("io_number", value);
       return this;
     }
-    public APIRequestGetAdAccounts requestIsAttributionSpecSystemDefaultField () {
-      return this.requestIsAttributionSpecSystemDefaultField(true);
-    }
-    public APIRequestGetAdAccounts requestIsAttributionSpecSystemDefaultField (boolean value) {
-      this.requestField("is_attribution_spec_system_default", value);
-      return this;
-    }
     public APIRequestGetAdAccounts requestIsNotificationsEnabledField () {
       return this.requestIsNotificationsEnabledField(true);
     }
@@ -1136,20 +1112,6 @@ public class User extends APINode {
       this.requestField("rf_spec", value);
       return this;
     }
-    public APIRequestGetAdAccounts requestSalesforceInvoiceGroupIdField () {
-      return this.requestSalesforceInvoiceGroupIdField(true);
-    }
-    public APIRequestGetAdAccounts requestSalesforceInvoiceGroupIdField (boolean value) {
-      this.requestField("salesforce_invoice_group_id", value);
-      return this;
-    }
-    public APIRequestGetAdAccounts requestShowCheckoutExperienceField () {
-      return this.requestShowCheckoutExperienceField(true);
-    }
-    public APIRequestGetAdAccounts requestShowCheckoutExperienceField (boolean value) {
-      this.requestField("show_checkout_experience", value);
-      return this;
-    }
     public APIRequestGetAdAccounts requestSpendCapField () {
       return this.requestSpendCapField(true);
     }
@@ -1223,13 +1185,11 @@ public class User extends APINode {
       return lastResponse;
     }
     public static final String[] PARAMS = {
-      "page_id",
       "query",
     };
 
     public static final String[] FIELDS = {
       "allow_organic_lead",
-      "block_display_for_non_targeted_viewer",
       "context_card",
       "continued_flow_request_method",
       "created_time",
@@ -1247,7 +1207,6 @@ public class User extends APINode {
       "locale",
       "messenger_welcome_message",
       "name",
-      "organic_leads_count",
       "page",
       "page_id",
       "privacy_policy_url",
@@ -1289,11 +1248,6 @@ public class User extends APINode {
       return this;
     }
 
-
-    public APIRequestGetLeadGenForms setPageId (String pageId) {
-      this.setParam("page_id", pageId);
-      return this;
-    }
 
     public APIRequestGetLeadGenForms setQuery (String query) {
       this.setParam("query", query);
@@ -1341,13 +1295,6 @@ public class User extends APINode {
     }
     public APIRequestGetLeadGenForms requestAllowOrganicLeadField (boolean value) {
       this.requestField("allow_organic_lead", value);
-      return this;
-    }
-    public APIRequestGetLeadGenForms requestBlockDisplayForNonTargetedViewerField () {
-      return this.requestBlockDisplayForNonTargetedViewerField(true);
-    }
-    public APIRequestGetLeadGenForms requestBlockDisplayForNonTargetedViewerField (boolean value) {
-      this.requestField("block_display_for_non_targeted_viewer", value);
       return this;
     }
     public APIRequestGetLeadGenForms requestContextCardField () {
@@ -1467,13 +1414,6 @@ public class User extends APINode {
     }
     public APIRequestGetLeadGenForms requestNameField (boolean value) {
       this.requestField("name", value);
-      return this;
-    }
-    public APIRequestGetLeadGenForms requestOrganicLeadsCountField () {
-      return this.requestOrganicLeadsCountField(true);
-    }
-    public APIRequestGetLeadGenForms requestOrganicLeadsCountField (boolean value) {
-      this.requestField("organic_leads_count", value);
       return this;
     }
     public APIRequestGetLeadGenForms requestPageField () {
@@ -1831,15 +1771,12 @@ public class User extends APINode {
       return lastResponse;
     }
     public static final String[] PARAMS = {
-      "include_past_events",
       "is_page_event",
-      "page_id",
     };
 
     public static final String[] FIELDS = {
       "attending_count",
       "can_guests_invite",
-      "can_viewer_post",
       "category",
       "cover",
       "declined_count",
@@ -1849,7 +1786,6 @@ public class User extends APINode {
       "id",
       "interested_count",
       "is_canceled",
-      "is_draft",
       "is_page_owned",
       "is_viewer_admin",
       "maybe_count",
@@ -1860,8 +1796,6 @@ public class User extends APINode {
       "place",
       "start_time",
       "ticket_uri",
-      "ticketing_privacy_uri",
-      "ticketing_terms_uri",
       "timezone",
       "type",
       "updated_time",
@@ -1900,30 +1834,12 @@ public class User extends APINode {
     }
 
 
-    public APIRequestGetPromotableEvents setIncludePastEvents (Boolean includePastEvents) {
-      this.setParam("include_past_events", includePastEvents);
-      return this;
-    }
-    public APIRequestGetPromotableEvents setIncludePastEvents (String includePastEvents) {
-      this.setParam("include_past_events", includePastEvents);
-      return this;
-    }
-
     public APIRequestGetPromotableEvents setIsPageEvent (Boolean isPageEvent) {
       this.setParam("is_page_event", isPageEvent);
       return this;
     }
     public APIRequestGetPromotableEvents setIsPageEvent (String isPageEvent) {
       this.setParam("is_page_event", isPageEvent);
-      return this;
-    }
-
-    public APIRequestGetPromotableEvents setPageId (Long pageId) {
-      this.setParam("page_id", pageId);
-      return this;
-    }
-    public APIRequestGetPromotableEvents setPageId (String pageId) {
-      this.setParam("page_id", pageId);
       return this;
     }
 
@@ -1975,13 +1891,6 @@ public class User extends APINode {
     }
     public APIRequestGetPromotableEvents requestCanGuestsInviteField (boolean value) {
       this.requestField("can_guests_invite", value);
-      return this;
-    }
-    public APIRequestGetPromotableEvents requestCanViewerPostField () {
-      return this.requestCanViewerPostField(true);
-    }
-    public APIRequestGetPromotableEvents requestCanViewerPostField (boolean value) {
-      this.requestField("can_viewer_post", value);
       return this;
     }
     public APIRequestGetPromotableEvents requestCategoryField () {
@@ -2045,13 +1954,6 @@ public class User extends APINode {
     }
     public APIRequestGetPromotableEvents requestIsCanceledField (boolean value) {
       this.requestField("is_canceled", value);
-      return this;
-    }
-    public APIRequestGetPromotableEvents requestIsDraftField () {
-      return this.requestIsDraftField(true);
-    }
-    public APIRequestGetPromotableEvents requestIsDraftField (boolean value) {
-      this.requestField("is_draft", value);
       return this;
     }
     public APIRequestGetPromotableEvents requestIsPageOwnedField () {
@@ -2124,20 +2026,6 @@ public class User extends APINode {
       this.requestField("ticket_uri", value);
       return this;
     }
-    public APIRequestGetPromotableEvents requestTicketingPrivacyUriField () {
-      return this.requestTicketingPrivacyUriField(true);
-    }
-    public APIRequestGetPromotableEvents requestTicketingPrivacyUriField (boolean value) {
-      this.requestField("ticketing_privacy_uri", value);
-      return this;
-    }
-    public APIRequestGetPromotableEvents requestTicketingTermsUriField () {
-      return this.requestTicketingTermsUriField(true);
-    }
-    public APIRequestGetPromotableEvents requestTicketingTermsUriField (boolean value) {
-      this.requestField("ticketing_terms_uri", value);
-      return this;
-    }
     public APIRequestGetPromotableEvents requestTimezoneField () {
       return this.requestTimezoneField(true);
     }
@@ -2176,7 +2064,6 @@ public class User extends APINode {
       "admin_notes",
       "age_range",
       "birthday",
-      "can_review_measurement_request",
       "context",
       "cover",
       "currency",
@@ -2214,7 +2101,6 @@ public class User extends APINode {
       "religion",
       "security_settings",
       "shared_login_upgrade_required_by",
-      "short_name",
       "significant_other",
       "sports",
       "test_group",
@@ -2324,13 +2210,6 @@ public class User extends APINode {
     }
     public APIRequestGet requestBirthdayField (boolean value) {
       this.requestField("birthday", value);
-      return this;
-    }
-    public APIRequestGet requestCanReviewMeasurementRequestField () {
-      return this.requestCanReviewMeasurementRequestField(true);
-    }
-    public APIRequestGet requestCanReviewMeasurementRequestField (boolean value) {
-      this.requestField("can_review_measurement_request", value);
       return this;
     }
     public APIRequestGet requestContextField () {
@@ -2592,13 +2471,6 @@ public class User extends APINode {
       this.requestField("shared_login_upgrade_required_by", value);
       return this;
     }
-    public APIRequestGet requestShortNameField () {
-      return this.requestShortNameField(true);
-    }
-    public APIRequestGet requestShortNameField (boolean value) {
-      this.requestField("short_name", value);
-      return this;
-    }
     public APIRequestGet requestSignificantOtherField () {
       return this.requestSignificantOtherField(true);
     }
@@ -2704,7 +2576,6 @@ public class User extends APINode {
     this.mAdminNotes = instance.mAdminNotes;
     this.mAgeRange = instance.mAgeRange;
     this.mBirthday = instance.mBirthday;
-    this.mCanReviewMeasurementRequest = instance.mCanReviewMeasurementRequest;
     this.mContext = instance.mContext;
     this.mCover = instance.mCover;
     this.mCurrency = instance.mCurrency;
@@ -2734,6 +2605,7 @@ public class User extends APINode {
     this.mMiddleName = instance.mMiddleName;
     this.mName = instance.mName;
     this.mNameFormat = instance.mNameFormat;
+    this.mPageScopedId = instance.mPageScopedId;
     this.mPaymentPricepoints = instance.mPaymentPricepoints;
     this.mPolitical = instance.mPolitical;
     this.mPublicKey = instance.mPublicKey;
@@ -2742,7 +2614,6 @@ public class User extends APINode {
     this.mReligion = instance.mReligion;
     this.mSecuritySettings = instance.mSecuritySettings;
     this.mSharedLoginUpgradeRequiredBy = instance.mSharedLoginUpgradeRequiredBy;
-    this.mShortName = instance.mShortName;
     this.mSignificantOther = instance.mSignificantOther;
     this.mSports = instance.mSports;
     this.mTestGroup = instance.mTestGroup;

@@ -51,6 +51,8 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
  *
  */
 public class ReachEstimate extends APINode {
+  @SerializedName("bid_estimations")
+  private JsonArray mBidEstimations = null;
   @SerializedName("estimate_ready")
   private Boolean mEstimateReady = null;
   @SerializedName("unsupported")
@@ -198,6 +200,15 @@ public class ReachEstimate extends APINode {
   }
 
 
+  public JsonArray getFieldBidEstimations() {
+    return mBidEstimations;
+  }
+
+  public ReachEstimate setFieldBidEstimations(JsonArray value) {
+    this.mBidEstimations = value;
+    return this;
+  }
+
   public Boolean getFieldEstimateReady() {
     return mEstimateReady;
   }
@@ -238,6 +249,8 @@ public class ReachEstimate extends APINode {
       VALUE_CLICKS("CLICKS"),
       @SerializedName("ENGAGED_USERS")
       VALUE_ENGAGED_USERS("ENGAGED_USERS"),
+      @SerializedName("EXTERNAL")
+      VALUE_EXTERNAL("EXTERNAL"),
       @SerializedName("EVENT_RESPONSES")
       VALUE_EVENT_RESPONSES("EVENT_RESPONSES"),
       @SerializedName("IMPRESSIONS")
@@ -262,10 +275,6 @@ public class ReachEstimate extends APINode {
       VALUE_SOCIAL_IMPRESSIONS("SOCIAL_IMPRESSIONS"),
       @SerializedName("VIDEO_VIEWS")
       VALUE_VIDEO_VIEWS("VIDEO_VIEWS"),
-      @SerializedName("APP_DOWNLOADS")
-      VALUE_APP_DOWNLOADS("APP_DOWNLOADS"),
-      @SerializedName("LANDING_PAGE_VIEWS")
-      VALUE_LANDING_PAGE_VIEWS("LANDING_PAGE_VIEWS"),
       NULL(null);
 
       private String value;
@@ -295,6 +304,7 @@ public class ReachEstimate extends APINode {
   }
 
   public ReachEstimate copyFrom(ReachEstimate instance) {
+    this.mBidEstimations = instance.mBidEstimations;
     this.mEstimateReady = instance.mEstimateReady;
     this.mUnsupported = instance.mUnsupported;
     this.mUsers = instance.mUsers;

@@ -51,28 +51,16 @@ import com.facebook.ads.sdk.APIException.MalformedResponseException;
  *
  */
 public class AdCreativeVideoData extends APINode {
-  @SerializedName("additional_image_index")
-  private Long mAdditionalImageIndex = null;
   @SerializedName("branded_content_sponsor_page_id")
   private String mBrandedContentSponsorPageId = null;
-  @SerializedName("branded_content_sponsor_relationship")
-  private String mBrandedContentSponsorRelationship = null;
   @SerializedName("call_to_action")
   private AdCreativeLinkDataCallToAction mCallToAction = null;
+  @SerializedName("description")
+  private String mDescription = null;
   @SerializedName("image_hash")
   private String mImageHash = null;
   @SerializedName("image_url")
   private String mImageUrl = null;
-  @SerializedName("link_description")
-  private String mLinkDescription = null;
-  @SerializedName("message")
-  private String mMessage = null;
-  @SerializedName("offer_id")
-  private String mOfferId = null;
-  @SerializedName("page_welcome_message")
-  private String mPageWelcomeMessage = null;
-  @SerializedName("retailer_item_ids")
-  private List<String> mRetailerItemIds = null;
   @SerializedName("targeting")
   private Targeting mTargeting = null;
   @SerializedName("title")
@@ -220,30 +208,12 @@ public class AdCreativeVideoData extends APINode {
   }
 
 
-  public Long getFieldAdditionalImageIndex() {
-    return mAdditionalImageIndex;
-  }
-
-  public AdCreativeVideoData setFieldAdditionalImageIndex(Long value) {
-    this.mAdditionalImageIndex = value;
-    return this;
-  }
-
   public String getFieldBrandedContentSponsorPageId() {
     return mBrandedContentSponsorPageId;
   }
 
   public AdCreativeVideoData setFieldBrandedContentSponsorPageId(String value) {
     this.mBrandedContentSponsorPageId = value;
-    return this;
-  }
-
-  public String getFieldBrandedContentSponsorRelationship() {
-    return mBrandedContentSponsorRelationship;
-  }
-
-  public AdCreativeVideoData setFieldBrandedContentSponsorRelationship(String value) {
-    this.mBrandedContentSponsorRelationship = value;
     return this;
   }
 
@@ -261,6 +231,15 @@ public class AdCreativeVideoData extends APINode {
     this.mCallToAction = AdCreativeLinkDataCallToAction.getGson().fromJson(value, type);
     return this;
   }
+  public String getFieldDescription() {
+    return mDescription;
+  }
+
+  public AdCreativeVideoData setFieldDescription(String value) {
+    this.mDescription = value;
+    return this;
+  }
+
   public String getFieldImageHash() {
     return mImageHash;
   }
@@ -276,51 +255,6 @@ public class AdCreativeVideoData extends APINode {
 
   public AdCreativeVideoData setFieldImageUrl(String value) {
     this.mImageUrl = value;
-    return this;
-  }
-
-  public String getFieldLinkDescription() {
-    return mLinkDescription;
-  }
-
-  public AdCreativeVideoData setFieldLinkDescription(String value) {
-    this.mLinkDescription = value;
-    return this;
-  }
-
-  public String getFieldMessage() {
-    return mMessage;
-  }
-
-  public AdCreativeVideoData setFieldMessage(String value) {
-    this.mMessage = value;
-    return this;
-  }
-
-  public String getFieldOfferId() {
-    return mOfferId;
-  }
-
-  public AdCreativeVideoData setFieldOfferId(String value) {
-    this.mOfferId = value;
-    return this;
-  }
-
-  public String getFieldPageWelcomeMessage() {
-    return mPageWelcomeMessage;
-  }
-
-  public AdCreativeVideoData setFieldPageWelcomeMessage(String value) {
-    this.mPageWelcomeMessage = value;
-    return this;
-  }
-
-  public List<String> getFieldRetailerItemIds() {
-    return mRetailerItemIds;
-  }
-
-  public AdCreativeVideoData setFieldRetailerItemIds(List<String> value) {
-    this.mRetailerItemIds = value;
     return this;
   }
 
@@ -373,17 +307,11 @@ public class AdCreativeVideoData extends APINode {
   }
 
   public AdCreativeVideoData copyFrom(AdCreativeVideoData instance) {
-    this.mAdditionalImageIndex = instance.mAdditionalImageIndex;
     this.mBrandedContentSponsorPageId = instance.mBrandedContentSponsorPageId;
-    this.mBrandedContentSponsorRelationship = instance.mBrandedContentSponsorRelationship;
     this.mCallToAction = instance.mCallToAction;
+    this.mDescription = instance.mDescription;
     this.mImageHash = instance.mImageHash;
     this.mImageUrl = instance.mImageUrl;
-    this.mLinkDescription = instance.mLinkDescription;
-    this.mMessage = instance.mMessage;
-    this.mOfferId = instance.mOfferId;
-    this.mPageWelcomeMessage = instance.mPageWelcomeMessage;
-    this.mRetailerItemIds = instance.mRetailerItemIds;
     this.mTargeting = instance.mTargeting;
     this.mTitle = instance.mTitle;
     this.mVideoId = instance.mVideoId;

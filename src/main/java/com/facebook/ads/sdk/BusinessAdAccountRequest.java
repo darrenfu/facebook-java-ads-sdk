@@ -55,6 +55,8 @@ public class BusinessAdAccountRequest extends APINode {
   private AdAccount mAdAccount = null;
   @SerializedName("id")
   private String mId = null;
+  @SerializedName("permitted_roles")
+  private List<String> mPermittedRoles = null;
   protected static Gson gson = null;
 
   public BusinessAdAccountRequest() {
@@ -222,6 +224,15 @@ public class BusinessAdAccountRequest extends APINode {
     return this;
   }
 
+  public List<String> getFieldPermittedRoles() {
+    return mPermittedRoles;
+  }
+
+  public BusinessAdAccountRequest setFieldPermittedRoles(List<String> value) {
+    this.mPermittedRoles = value;
+    return this;
+  }
+
 
 
 
@@ -241,6 +252,7 @@ public class BusinessAdAccountRequest extends APINode {
   public BusinessAdAccountRequest copyFrom(BusinessAdAccountRequest instance) {
     this.mAdAccount = instance.mAdAccount;
     this.mId = instance.mId;
+    this.mPermittedRoles = instance.mPermittedRoles;
     this.context = instance.context;
     this.rawValue = instance.rawValue;
     return this;
